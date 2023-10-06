@@ -3511,3 +3511,7 @@ details-disclosure > details {
     --border-offset: 0px; /* Prevent the border from growing on buttons when this effect is on. */
   }
 }
+
+h2.title.inline-richtext.h2.scroll-trigger.animate--slide-in {
+  color: red;
+}
