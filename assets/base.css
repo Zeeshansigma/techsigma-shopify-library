@@ -3513,5 +3513,6 @@ details-disclosure > details {
 }
 
 h2.title.inline-richtext.h2.scroll-trigger.animate--slide-in {
-  color: yellow;
+  color: brown;
+  font-size: 20px;
 }
