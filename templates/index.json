@@ -20,11 +20,19 @@
             "button_link_2": "",
             "button_style_secondary_2": false
           }
+        },
+        "fdc2b769-1b88-4a6c-86da-9b77808ee3b3": {
+          "type": "text",
+          "settings": {
+            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text_style": "body"
+          }
         }
       },
       "block_order": [
         "heading",
-        "button"
+        "button",
+        "fdc2b769-1b88-4a6c-86da-9b77808ee3b3"
       ],
       "settings": {
         "image_overlay_opacity": 40,
