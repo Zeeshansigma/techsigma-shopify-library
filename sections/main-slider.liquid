@@ -1,1 +1,59 @@
-<h1>hello</h1>
+
+
+
+{% for block in section.blocks %}
+    <h1 class="main-heading">{{section.settings.title}}</h1>
+    {% case block.type %}
+      {% when 'slide' %}
+        <div class="slide" {{ block.shopify_attributes }}>
+          {{ block.settings.image | image_url: width: 2048 | image_tag }}
+        </div>
+      ...
+    {% endcase %}
+  {% endfor %}
+  
+{% schema %}
+    {
+      "name": "Slideshow",
+      "tag": "section",
+      "class": "slideshow",
+      "max_blocks": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Slideshow"
+        }
+      ],
+      "blocks": [
+         {
+           "name": "Slide",
+           "type": "slide",
+           "settings": [
+             {
+               "type": "image_picker",
+               "id": "image",
+               "label": "Image"
+             }
+           ]
+         }
+       ],
+      "presets": [
+        {
+          "name": "Slideshow",
+          "settings": {
+            "title": "Slideshow"
+          },
+          "blocks": [
+            {
+              "type": "slide"
+            },
+            {
+              "type": "slide"
+            }
+          ]
+        }
+      ]
+    }
+    {% endschema %}
+    
