@@ -62,12 +62,14 @@
 <div class="slider-container">
     <div class="image-container Pre_slide">
         {% for block in section.blocks %}
-            <div class="slider-image" style="background-image: url('{{ block.settings.slide_image | img_url: 'mster' }}');">
-               
+            <div class="image-title">
+                {{ block.settings.slide_title }}
             </div>
-<div class="img-title">
-                <h1>hello</h1>
-               </div>
+
+            <div class="slider-image">
+                <img src="{{ block.settings.slide_image | img_url: 'master' }}">
+            </div>
+
         {% endfor %}
     </div>
 
