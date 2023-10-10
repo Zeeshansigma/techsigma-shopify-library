@@ -1,15 +1,23 @@
 <div class="slider-container">
     <div class="image-container">
-        {% for slide in settings.blocks %}
-            <div class="image-title">
-                {{ slide.slide_title }}
-            </div>
+       {% for slide in settings.blocks %}
+    <div class="image-title">
+        {% if slide.slide_title %}
+            {{ slide.slide_title }}
+        {% else %}
+            No Title Available
+        {% endif %}
+    </div>
 
-            <div class="slider-image">
-                <img src="{{ slide.slide_image | img_url: 'master' }}">
-            </div>
+    <div class="slider-image">
+        {% if slide.slide_image %}
+            <img src="{{ slide.slide_image | img_url: 'master' }}">
+        {% else %}
+            <p>No Image Available</p>
+        {% endif %}
+    </div>
+{% endfor %}
 
-        {% endfor %}
     </div>
 
     <div class="slider-next">Next</div>
