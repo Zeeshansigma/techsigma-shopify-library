@@ -56,7 +56,30 @@
     left: 10px;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .slider-image {
+        height: 60vh; /* Adjust the height for smaller screens */
+    }
 
+    .slider-next,
+    .slider-prev {
+        font-size: 14px; /* Decrease font size for smaller screens */
+        padding: 8px 16px; /* Adjust button padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-image {
+        height: 50vh; /* Further reduce the height for smaller screens */
+    }
+
+    .slider-next,
+    .slider-prev {
+        font-size: 12px; /* Decrease font size for even smaller screens */
+        padding: 6px 12px; /* Adjust button padding */
+    }
+}
 
 </style>
 <div class="slider-container">
