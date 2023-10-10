@@ -67,60 +67,52 @@
         "padding_bottom": 36
       }
     },
-    "467e2501-d751-4219-8dfc-cb9f699f0c21": {
+    "f1af7dfc-b305-4e74-820f-de3491e083eb": {
       "type": "new-main-slider",
       "blocks": {
-        "template--21424957423931__467e2501-d751-4219-8dfc-cb9f699f0c21-slide-1": {
+        "6a0535e4-c73c-4b1c-8fc2-f7bb7b272f7b": {
           "type": "slide",
           "settings": {
             "slide_image": "shopify:\/\/shop_images\/abou-new-02.jpg",
             "slide_title": "first slider"
           }
         },
-        "template--21424957423931__467e2501-d751-4219-8dfc-cb9f699f0c21-slide-2": {
+        "3e5734d6-7b78-4584-bd5d-7569f1d366e2": {
           "type": "slide",
           "settings": {
             "slide_image": "shopify:\/\/shop_images\/abou-new-01.jpg",
             "slide_title": "second slider"
           }
         },
-        "4030622d-7ba6-4575-939b-3f0476625376": {
+        "6c07d1b9-3574-450c-b34e-ba0cafd0bb42": {
           "type": "slide",
           "settings": {
             "slide_image": "shopify:\/\/shop_images\/zee-2image.webp",
             "slide_title": "third slider"
           }
         },
-        "827c2197-097a-42b5-890c-0f9e8eb86216": {
+        "c3f63899-e56d-4f19-8709-a649897a9d66": {
           "type": "slide",
           "settings": {
             "slide_image": "shopify:\/\/shop_images\/abou-new-02.jpg",
             "slide_title": "fourth slider"
           }
-        },
-        "32189809-ebf0-493b-a4c3-b6b72443fb8a": {
-          "type": "slide",
-          "settings": {
-            "slide_image": "shopify:\/\/shop_images\/abou-new-01.jpg",
-            "slide_title": "fifth slider"
-          }
         }
       },
       "block_order": [
-        "template--21424957423931__467e2501-d751-4219-8dfc-cb9f699f0c21-slide-1",
-        "template--21424957423931__467e2501-d751-4219-8dfc-cb9f699f0c21-slide-2",
-        "4030622d-7ba6-4575-939b-3f0476625376",
-        "827c2197-097a-42b5-890c-0f9e8eb86216",
-        "32189809-ebf0-493b-a4c3-b6b72443fb8a"
+        "6a0535e4-c73c-4b1c-8fc2-f7bb7b272f7b",
+        "3e5734d6-7b78-4584-bd5d-7569f1d366e2",
+        "6c07d1b9-3574-450c-b34e-ba0cafd0bb42",
+        "c3f63899-e56d-4f19-8709-a649897a9d66"
       ],
       "settings": {
-        "title": "Slideshow-w"
+        "title": ""
       }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
-    "467e2501-d751-4219-8dfc-cb9f699f0c21"
+    "f1af7dfc-b305-4e74-820f-de3491e083eb"
   ]
 }
