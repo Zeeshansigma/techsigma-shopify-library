@@ -91,13 +91,6 @@
             "slide_title": "third slider"
           }
         },
-        "8bf5c9d1-7c5d-4263-8965-427e33fce659": {
-          "type": "slide",
-          "settings": {
-            "slide_image": "shopify:\/\/shop_images\/abou-new-01.jpg",
-            "slide_title": "third slider"
-          }
-        },
         "4d5cd83a-d802-4ffc-aead-9681214393f7": {
           "type": "slide",
           "settings": {
@@ -110,7 +103,6 @@
         "6c07d1b9-3574-450c-b34e-ba0cafd0bb42",
         "3284667c-bd07-46d8-abd2-eaabe92687c3",
         "47e589ee-d8ab-44f5-bdd9-749f34b29b8f",
-        "8bf5c9d1-7c5d-4263-8965-427e33fce659",
         "4d5cd83a-d802-4ffc-aead-9681214393f7"
       ],
       "settings": {
