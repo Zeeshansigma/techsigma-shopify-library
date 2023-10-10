@@ -6,10 +6,10 @@
 /* Styles for the slider container */
 .slider-container {
     width: 100%;
-    max-width: 100vw; /* Set the maximum width to the viewport width */
+    max-width: 100vw;
     margin: 0 auto;
     position: relative;
-    overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+    overflow: hidden;
 }
 
 /* Styles for the image container */
@@ -19,21 +19,15 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    width: 100%; /* Make the container take full width */
+    width: 100%;
 }
 
 /* Styles for each slide */
-.image-title h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center; /* Center the title */
-}
-
-.slider-image img {
-    width: 100%; /* Make sure the images fill the container */
-    height: auto;
-    object-fit: cover; /* Maintain aspect ratio while covering the container */
+.slider-image {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
     scroll-snap-align: start;
 }
 
@@ -51,6 +45,7 @@
     color: #fff;
     border: none;
     border-radius: 5px;
+    z-index: 2;
 }
 
 .slider-next {
@@ -60,6 +55,7 @@
 .slider-prev {
     left: 10px;
 }
+
 
 
 </style>
