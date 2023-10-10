@@ -23,11 +23,20 @@
 }
 
 /* Styles for each slide */
+.image-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; /* Center the text */
+    width: 100%; /* Ensure text is centered regardless of image width */
+    z-index: 1; /* Ensure text is displayed above the image */
+}
+
 .image-title h1 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
-    text-align: center; /* Center the title */
 }
 
 .slider-image img {
@@ -35,6 +44,7 @@
     height: auto;
     object-fit: cover; /* Maintain aspect ratio while covering the container */
     scroll-snap-align: start;
+    z-index: 0; /* Ensure images are displayed behind the text */
 }
 
 /* Styles for the navigation buttons */
@@ -51,6 +61,7 @@
     color: #fff;
     border: none;
     border-radius: 5px;
+    z-index: 2; /* Ensure buttons are displayed above the text and images */
 }
 
 .slider-next {
