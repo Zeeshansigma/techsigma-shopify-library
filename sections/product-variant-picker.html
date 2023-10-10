@@ -1,0 +1,1132 @@
+{% comment %}
+Renders product variant-picker
+
+Accepts:
+- product: {Object} product object.
+- block: {Object} passing the block information.
+- product_form_id: {String} Id of the product form to which the variant picker is associated.
+- update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+Usage:
+{% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+{% if product.variants.size > 0 %}
+  <script>
+    // Initialize an empty array to store variant metafields
+    const variantMetafields = [];
+
+// Loop through the product variants
+    {% for variant in product.variants %}
+
+// Check if the variant has metafields
+      {% if variant.metafields %}
+
+// Create a JavaScript object for the variant metafields
+        var metafields = {
+          variantId: {{ variant.id }},
+          metafields: {{ variant.metafields.custom | json }}
+        };
+
+// current currency symbol
+        var curr_symbol = "{{localization.country.currency.symbol}}"
+
+// Push the JavaScript object into the array
+        variantMetafields.push(metafields);{% endif %}{% endfor %}
+
+// Now, you have an array (variantMetafields) containing metafields for each variant
+    console.log("Now, you have an array (variantMetafields) containing metafields for each variant");
+    console.log(variantMetafields);
+
+    function mapVariantMetafields(inputArray) {
+      return inputArray.map((variant) => {
+        return {
+          id: variant.variantId,
+          dockType: variant.metafields.mac_monitor,
+          years: variant.metafields.mac_year.join(', '),
+          model: variant.metafields.mac_model.join(', '),
+          sizes: variant.metafields.mac_size.join(', '),
+          processor: variant.metafields.mac_processor_v,
+          dd: variant.metafields.date,
+          mm: variant.metafields.month,
+          yy: variant.metafields.year_yyyy,
+          variant_compatibility: variant.metafields.variant_compatibility,
+          pre_order: variant.metafields.preorder,
+          color: variant.metafields.color,
+          material: variant.metafields.material,
+          numberOfPorts: variant.metafields.number_of_ports,
+          hardWare: variant.metafields.hardware_interfaces,
+          dimensions: variant.metafields.item_dimensions_lxwxh_,
+          itemWeight: variant.metafields.item_weight
+        };
+      });
+    }
+
+// Example input array
+    const inputArray = variantMetafields;
+
+// Call the function to map the input array
+    const mappedArrayOfMetaFields = mapVariantMetafields(inputArray);
+  </script>
+{% endif %}
+<style>
+  .swatches_model {
+    width: 25%;
+  }
+  .swatches_size {
+    width: 75%;
+    /* padding-left:32px; */
+  }
+  .middle_swatches {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom:auto;
+  }
+  .product_bundle {
+    display: flex;
+    margin: 0;
+    /* border: 0.3px solid #f3eeee; */
+    border-radius: 10px;
+  }
+  .product__tax p {
+    margin-bottom: 0;
+  }
+  .swatch,
+  .swatch_b,
+  .swatch_m,
+  .swatch_s,
+  .swatch_y,
+  .swatch_pr {
+    /* width: 100%; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    padding: 10px 16px;
+    border: 0.3px solid #f3eeee;
+    border-right: 0.3px solid #f3eeee;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .swatch_pr {
+    font-size: 14px;
+    padding: 6.5px 16px;
+  }
+  .swatch:last-child,
+  .swatch_b:last-child,
+  .swatch_m:last-child,
+  .swatch_s:last-child,
+  .swatch_y:last-child,
+  .swatch_pr:last-child {
+    /* border-right: none; /* Remove border from the last swatch */ */
+  }
+  .swatch_b.active,
+  .swatch_m.active,
+  .swatch_s.active,
+  .swatch_y.active,
+  .swatch_pr.active {
+    border: 1px solid var(--electronic-indigo, #6219FA);
+    background: #6219FA !important;
+    color: #fff;
+  }
+
+
+  .swatch_b:nth-child(1),
+  .swatch_m:nth-child(1),
+  .swatch_s:nth-child(1),
+  .swatch_y:nth-child(1),
+  .swatch_pr:nth-child(1) {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  .swatch_b.active:nth-child(1),
+  .swatch_m.active:nth-child(1),
+  .swatch_s.active:nth-child(1),
+  .swatch_y.active:nth-child(1),
+  .swatch_pr.active:nth-child(1) {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  .swatch_b:last-child,
+  .swatch_m:last-child,
+  .swatch_s:last-child,
+  .swatch_y:last-child,
+  .swatch_pr:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  /* .swatch_b.active:nth-child(1), .swatch_m.active:nth-child(1), .swatch_s.active:nth-child(1), .swatch_y.active:nth-child(1) {
+  border-top-left-radius:10px;
+  border-bottom-left-radius:10px;
+} */
+  .swatch_b.active:nth-child(4),
+  .swatch_m.active:nth-child(2),
+  .swatch_s.active:nth-child(4),
+  .swatch_y.active:nth-child(4),
+  .swatch_pr.active:nth-child(2) {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .bundle_heading {
+    display: flex;
+    max-width: 53%;
+    justify-content: space-between;
+  }
+  .bundle_heading.up {
+    max-width: 100%;
+  }
+  @media screen and (max-width:768px) {
+    .bundle_heading {
+      max-width: 100%;
+    }
+    .swatch_y {
+      width: 100%;
+    }
+  }
+  .bundle_heading p:nth-child(2) {
+    margin-left: 13%;
+  }
+  .how-to {
+    font-family: Montserrat;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 0;
+    text-align: left;
+    color: #6219FA;
+    position: relative;
+    border: none;
+    background: transparent;
+  }
+  @media screen and (max-width: 600px) {
+    .swatches_size,
+    .swatches_model {
+      width: 100%;
+      padding-bottom: 12px;
+    }
+    .middle_swatches {
+      flex-flow: row wrap;
+    }
+    .swatches_size {
+      padding-left: 0;
+    }
+    .swatch,
+    .swatch_b,
+    .swatch_m,
+    .swatch_s,
+    .swatch_y,
+    .swatch_pr {
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .how-to span {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 400px) {
+
+    .swatch,
+    .swatch_b,
+    .swatch_m,
+    .swatch_s,
+    .swatch_y,
+    .swatch_pr {
+      font-size: 12px;
+      padding: 10px 8px;
+    }
+  }
+  @media screen and (max-width: 359px) {
+
+    .swatch,
+    .swatch_b,
+    .swatch_m,
+    .swatch_s,
+    .swatch_y,
+    .swatch_pr {
+      padding: 10px 11px;
+      font-size: 10px;
+      line-height: normal;
+    }
+  }
+
+
+  @media screen and (min-width: 800px) {
+    .choose-text {
+      display: none;
+    }
+  }
+  .choose-text h2 {
+    color: var(--Black, #1F1F1F);
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    letter-spacing: -0.48px;
+    margin-bottom: 12px;
+  }
+  .choose-text p {
+    color: var(--Black, #1F1F1F);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    margin-bottom: 16px;
+  }
+  {% if template.suffix == 'regular-product' %}{% endif %}
+}
+</style>
+{% if template.suffix != 'regular-product' %}
+  {% if product.metafields.stock.preorder.value %}
+    {% assign prval = product.metafields.stock.preorder.value %}{% endif %}
+  {% if prval %}
+    {% render 'count-down-timer' %}
+  {% endif %}
+  <div class="choose-text">
+    <h2>Choose MacBook Model</h2>
+    <p>To connect HDMI, USB-A or Ethernet combine your Docking Station with an adapter.</p>
+  </div>
+  <div class="middle_swatches">
+    <div class="swatches_model">
+      <div class="bundle_heading up">MacBook Model</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_m"
+          id="swatch1"
+          onClick="onSelectModel('Pro')">Pro</div>
+        <div
+          class="swatch_m"
+          id="swatch2"
+          onClick="onSelectModel('Air')">Air</div>
+      </div>
+    </div>
+
+    <div class="swatches_size">
+      <div class="bundle_heading">MacBook Size</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_s"
+          id="swatch1"
+          onClick="onSelectSize('13')">13”</div>
+        <div
+          class="swatch_s"
+          id="swatch2"
+          onClick="onSelectSize('14')">14”</div>
+        <div
+          class="swatch_s"
+          id="swatch2"
+          onClick="onSelectSize('15')">15”</div>
+        <div
+          class="swatch_s"
+          id="swatch2"
+          onClick="onSelectSize('16')">16”</div>
+      </div>
+    </div>
+  </div>
+  <div class="swatches_year">
+    <div class="bundle_heading">
+      <p>
+        MacBook Year Release</p>
+      <button onclick="showPopup()" class="how-to">
+        <span>How to?</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none">
+          <g clip-path="url(#clip0_139_2160)">
+            <path d="M6 8V6V8ZM6 4H6.005H6ZM11 6C11 8.7614 8.7614 11 6 11C3.23857 11 1 8.7614 1 6C1 3.23857 3.23857 1 6 1C8.7614 1 11 3.23857 11 6Z" fill="#6219FA" />
+            <path
+              d="M6 8V6M6 4H6.005M11 6C11 8.7614 8.7614 11 6 11C3.23857 11 1 8.7614 1 6C1 3.23857 3.23857 1 6 1C8.7614 1 11 3.23857 11 6Z"
+              stroke="#FEFEFE"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </g>
+          <rect
+            x="0.5"
+            y="0.5"
+            width="11"
+            height="11"
+            rx="5.5"
+            stroke="#6219FA" />
+          <defs>
+            <clipPath id="clip0_139_2160">
+              <rect
+                width="12"
+                height="12"
+                rx="6"
+                fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </button>
+      {% render 'custom-popup' %}
+    </div>
+    <div class="product_bundle">
+      <div
+        class="swatch_y"
+        id="swatch1"
+        onClick="onSelectYear('2016-2020')">2016-2020</div>
+      <div
+        class="swatch_y"
+        id="swatch2"
+        onClick="onSelectYear('2021')">2021</div>
+      <div
+        class="swatch_y"
+        id="swatch2"
+        onClick="onSelectYear('2022')">2022</div>
+      <div
+        class="swatch_y"
+        id="swatch2"
+        onClick="onSelectYear('2023')">2023</div>
+    </div>
+
+ 
+
+    <div class="swatches_bundle">
+      <div class="bundle_heading">Processor Type</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_pr"
+          id="swatch_pr_m1"
+          onClick="onSelectProcessor('M1 / M2')">M1 / M2</div>
+        <div
+          class="swatch_pr"
+          id="swatchm_pr_intel"
+          onClick="onSelectProcessor('Intel')">Intel</div>
+      </div>
+    </div>
+    <div class="swatches_bundle">
+      <div class="bundle_heading">Product Bundle</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_b"
+          id="swatch1"
+          onClick="onSelectBundle('Single Dock')">Single Dock</div>
+        <div
+          class="swatch_b"
+          id="swatch2"
+          onClick="onSelectBundle('1x Monitor')">1x Monitor</div>
+        <div
+          class="swatch_b"
+          id="swatch3"
+          onClick="onSelectBundle('2x Monitor')">2x Monitor</div>
+        <!-- <div class="swatch_b" id="swatch4">2x Monitor M1/M2</div> -->
+      </div>
+    </div>
+
+
+  </div>
+{% endif %}
+{% for variant in product.variants %}
+  {% assign mac_processor = variant.metafields.custom.mac_processor %}
+{% endfor %}
+
+{%- unless product.has_only_default_variant -%}
+  {% if template.suffix == 'regular-product' %}
+    {%- if block.settings.picker_type == 'button' -%}
+      <variant-radios
+        id="variant-radios-{{ section.id }}"
+        class=""
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        {% if update_url == false %}data-update-url="false"{% endif %}{{ block.shopify_attributes }}>
+        {%- for option in product.options_with_values -%}
+          <fieldset class="js product-form__input">
+            <legend class="form__label">{{ option.name }}</legend>
+            {% render 'product-variant-options', product: product, option: option, block: block %}
+          </fieldset>
+        {%- endfor -%}
+        <script type="application/json">
+          {{ product.variants | json }}
+        </script>
+      </variant-radios>
+    {%- else -%}
+      <variant-selects
+        id="variant-selects-{{ section.id }}"
+        class="no-js-hidden "
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        {% if update_url == false %}data-update-url="false"{% endif %}{{ block.shopify_attributes }}>
+        {%- for option in product.options_with_values -%}
+          <div class="product-form__input product-form__input--dropdown">
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+            <div class="select">
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}">
+                {% render 'product-variant-options', product: product, option: option, block: block %}
+              </select>
+              {% render 'icon-caret' %}
+            </div>
+          </div>
+        {%- endfor -%}
+      {% endif %}
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-selects>
+  {%- endif -%}
+{%- endunless -%}
+{% if template.suffix == 'main-product' %}
+  <div class="swatches_size swatches_size ">
+    <div class="bundle_heading">Processor Type</div>
+    <div class="product_bundle">
+      <div class="swatch_m swatch_s active" id="swatchm1">M1 / M2</div>
+      <div class="swatch_m swatch_s" id="swatchm2">intel</div>
+    </div>
+  </div>
+{% endif %}
+<noscript class="product-form__noscript-wrapper-{{ section.id }}">
+  <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+    <label class="form__label" for="Variants-{{ section.id }}">
+      {{- 'products.product.product_variants' | t -}}
+    </label>
+    <div class="select">
+      <select
+        name="id"
+        id="Variants-{{ section.id }}"
+        class="select__select"
+        form="{{ product_form_id }}">
+        {%- for variant in product.variants -%}
+          <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}{% if variant.available == false %}disabled{% endif %} value="{{ variant.id }}">
+            {%- liquid
+              echo variant.title
+              echo variant.price | money | strip_html | prepend: ' - '
+              if variant.available == false
+                echo 'products.product.sold_out' | t | prepend: ' - '
+              endif
+              if variant.quantity_rule.increment > 1
+                echo 'products.product.quantity.multiples_of' | t: quantity: variant.quantity_rule.increment | prepend: ' - '
+              endif
+              if variant.quantity_rule.min > 1
+                echo 'products.product.quantity.minimum_of' | t: quantity: variant.quantity_rule.min | prepend: ' - '
+              endif
+              if variant.quantity_rule.max != null
+                echo 'products.product.quantity.maximum_of' | t: quantity: variant.quantity_rule.max | prepend: ' - '
+              endif
+              # TODO: enable theme-check once `item_count_for_variant` is accepted as valid filter
+              # theme-check-disable
+              assign cart_quantity = cart | item_count_for_variant: variant.id
+              # theme-check-enable
+              if cart_quantity > 0
+                echo 'products.product.quantity.in_cart_html' | t: quantity: cart_quantity | prepend: ' - '
+              endif
+            -%}
+          </option>
+        {%- endfor -%}
+      </select>
+      {% render 'icon-caret' %}
+    </div>
+  </div>
+</noscript>
+<script>
+  const swatches = {
+    dockType: document.querySelectorAll('.swatch_b'),
+    model: document.querySelectorAll('.swatch_m'),
+    sizes: document.querySelectorAll('.swatch_s'),
+    years: document.querySelectorAll('.swatch_y'),
+    processor: document.querySelectorAll('.swatch_pr')
+  };
+
+  const activeSwatch = {
+    dockType: null,
+    model: null,
+    sizes: null,
+    years: null,
+    processor: null
+  };
+
+  let filteredItems = [... mappedArrayOfMetaFields];
+
+  let master_object = {};
+
+// Initialize master_object as an empty object
+  const selected_Swatches = {
+    years: "",
+    model: "",
+    sizes: "",
+    processor: "",
+    dockType: ""
+  };
+
+
+
+  var countdownInterval = null; // Initialize countdownInterval to null
+  var ddd = ""; // Empty string
+  var mmm = ""; // Empty string
+  var yyy = ""; // Empty string
+  var preOrderCount = false; // Default value
+
+  const day = 1000 * 60 * 60 * 24;
+  const hour = 1000 * 60 * 60;
+  const minute = 1000 * 60;
+  const second = 1000;
+
+  function startTimer(finalArray) {
+    const count_down = document.querySelector(".countdown_display");
+
+    console.log("check that update object: ", finalArray);
+
+    let currentDdd = finalArray.dd;
+    let currentMmm = finalArray.mm;
+    let currentYyy = finalArray.yy;
+    let currentPreOrderCount = finalArray.pre_order;
+
+// Check if there's a change in any of the values
+    if (currentDdd !== ddd || currentMmm !== mmm || currentYyy !== yyy || currentPreOrderCount !== preOrderCount) {
+      ddd = currentDdd;
+      mmm = currentMmm;
+      yyy = currentYyy;
+      preOrderCount = currentPreOrderCount;
+
+// Clear any previous interval
+      clearInterval(countdownInterval);
+
+
+// Initialize the countdown with the updated values
+      const dayMonth = mmm + "/" + ddd + "/";
+      const birthday = dayMonth + yyy;
+      const countDown = new Date(birthday).getTime();
+
+// Update the display based on the new preOrderCount value
+      if (preOrderCount) {
+        count_down.style.display = 'block';
+      } else {
+        count_down.style.display = 'none';
+      }
+
+// Update the countdown display immediately
+      updateCountdownDisplay(countDown);
+
+// Set a new interval to update the countdown
+      countdownInterval = setInterval(function() {
+        updateCountdownDisplay(countDown);
+      }, 1000);
+    }
+
+// Rest of your code...
+
+    function updateCountdownDisplay(countDown) {
+      const now = new Date().getTime();
+      const distance = countDown - now;
+
+      document.getElementById("days").innerText = Math.floor(distance / (day));
+      document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour));
+      document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute));
+      document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+    }
+  }
+
+// For Compatiblity
+  function product_compatiblity(compatiblity_array) {
+    const varisntComp = compatiblity_array.variant_compatibility;
+    console.log(varisntComp);
+    const compatiblity_element = document.querySelector("#compatiblity");
+    compatiblity_element.textContent = '';
+    compatiblity_element.textContent = varisntComp;
+    console.log(compatiblity_element);
+  }
+
+// for specifications
+  function product_item_specifications(specification_data) {
+    const variant_dimension = specification_data.dimensions;
+    const pr_dimension = document.querySelector("#dimensions");
+    pr_dimension.textContent = '';
+    pr_dimension.textContent = variant_dimension;
+    console.log(variant_dimension);
+
+    const variant_itemWeight = specification_data.itemWeight;
+    const pr_weight = document.querySelector("#weight");
+    pr_weight.textContent = '';
+    pr_weight.textContent = variant_itemWeight;
+    console.log(variant_itemWeight);
+
+
+    const variant_hardWare = specification_data.hardWare;
+    const pr_hardware = document.querySelector("#hardware");
+    pr_hardware.textContent = '';
+    pr_hardware.textContent = variant_hardWare;
+    console.log(variant_hardWare);
+
+    const variant_numberOfPorts = specification_data.numberOfPorts;
+    const pr_ports = document.querySelector("#ports");
+    pr_ports.textContent = '';
+    pr_ports.textContent = variant_numberOfPorts;
+    console.log(variant_numberOfPorts);
+
+    const variant_material = specification_data.material;
+    const pr_material = document.querySelector("#material");
+    pr_material.textContent = '';
+    pr_material.textContent = variant_material;
+    console.log(variant_material);
+
+    const variant_color = specification_data.color;
+    const pr_color = document.querySelector("#color");
+    pr_color.textContent = '';
+    pr_color.textContent = variant_color;
+    console.log(variant_color);
+
+
+  }
+
+// variants all code
+  function variant_id(index_vairant) {
+    const shopifyDomain = 'ascrono.com';
+    const accessToken = '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';
+
+    const apiEndpoint = `https://${shopifyDomain}/products/{{product.handle}}.json`;
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'X-Shopify-Access-Token': accessToken
+    };
+
+    fetch(apiEndpoint, {
+      method: 'GET',
+      headers: headers
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to retrieve product data. Status code: ${
+          response.status
+        }`);
+      }
+      return response.json();
+    }).then((productData) => {
+
+      const current_variant = productData.product.variants.find(variant => variant.id === index_vairant);
+      const current_variant_meta_fields = mappedArrayOfMetaFields.find(item => item.id === index_vairant);
+
+// for change variant id to add to cart
+      var update_variant = current_variant.id;
+      var add_to_cart_value = document.querySelector(".product-variant-id");
+      add_to_cart_value.value = '';
+      add_to_cart_value.value = update_variant;
+
+      specialUpdateVariantDetails();
+
+      function specialUpdateVariantDetails() {
+        const variants = document.querySelectorAll('.pre-btn');
+
+        for (let vr = 0; vr < variants.length; vr++) {
+          console.log(variants[vr].getAttribute('data-variant-id'));
+          var my_variant_id = variants[vr].getAttribute('data-variant-id');
+          var my_variant_preOrder = variants[vr].getAttribute('data-variant-preorder');
+          if (my_variant_id == update_variant && my_variant_preOrder == 'true') {
+            console.log("yesss");
+            variants[vr].style.display = "block";
+          } else {
+            variants[vr].style.display = "none";
+          }
+        }
+
+//     const variants_countDown = document.querySelectorAll('.countdown-section');
+
+// for(let vc=0; vc< variants_countDown.length; vc++ ){
+// console.log(variants_countDown[vc].getAttribute('data-variant-id'));
+// var vc_variant_id = variants_countDown[vc].getAttribute('data-variant-id');
+// var vc_variant_preOrder = variants_countDown[vc].getAttribute('data-variant-preorder');
+// if(vc_variant_id == update_variant &&  vc_variant_preOrder == 'true'){
+//     console.log("yesss");
+//     variants_countDown[vc].style.display = "block";
+// }
+// else{
+//     variants_countDown[vc].style.display = "none";
+// }
+// }
+
+        const variants_preOrdertext = document.querySelectorAll('.preorder_text');
+
+        for (let vt = 0; vt < variants_preOrdertext.length; vt++) {
+          console.log(variants_preOrdertext[vt].getAttribute('data-variant-id'));
+          var vt_variant_id = variants_preOrdertext[vt].getAttribute('data-variant-id');
+          var vt_variant_preOrder = variants_preOrdertext[vt].getAttribute('data-variant-preorder');
+          if (vt_variant_id == update_variant && vt_variant_preOrder == 'true') {
+            console.log("yesss");
+            variants_preOrdertext[vt].style.display = "block";
+          } else {
+            variants_preOrdertext[vt].style.display = "none";
+          }
+
+
+        }
+
+//       const compatiblity = document.querySelectorAll(".variant_compatibility");
+// for (let cm=0; cm< compatiblity.length; cm++){
+// var my_comp = compatiblity[cm]..getAttribute('data-variant-id');
+// if(my_comp == update_variant ){
+//     compatiblity[cm].style.display = "block";
+// }
+// else{
+//     compatiblity[cm].style.display = "none";
+// }
+// }
+
+      }
+
+// for title
+      var variant_title = current_variant.title;
+      var product_var_custom_title = document.querySelector(".product__doc_txt p");
+      product_var_custom_title.textContent = '';
+      product_var_custom_title.textContent = variant_title;
+
+      const var_string = product_var_custom_title.textContent;
+      const type_change_text = document.querySelector(".product__doc_txt h3 .types");
+
+      const typeA = "type A";
+      const typeB = "type B";
+      const typeC = "type C";
+      const typeD = "type D";
+      const typeE = "type E";
+      const typeF = "type F";
+      if (var_string.toLowerCase().includes(typeA.toLowerCase())) {
+        type_change_text.textContent = '';
+        type_change_text.textContent = "Type A";
+      } else if (var_string.toLowerCase().includes(typeB.toLowerCase())) {
+        type_change_text.textContent = '';
+        type_change_text.textContent = "Type B";
+      } else if (var_string.toLowerCase().includes(typeC.toLowerCase())) {
+        type_change_text.textContent = '';
+        type_change_text.textContent = "Type C";
+      } else if (var_string.toLowerCase().includes(typeD.toLowerCase())) {
+        type_change_text.textContent = '';
+        type_change_text.textContent = "Type D";
+      } else if (var_string.toLowerCase().includes(typeE.toLowerCase())) {
+        type_change_text.textContent = '';
+        type_change_text.textContent = "Type E";
+      } else if (var_string.toLowerCase().includes(typeF.toLowerCase())) {
+        type_change_text.textContent = '';
+        type_change_text.textContent = "Type F";
+      }
+
+
+// for price
+      const product_regular_price = document.querySelectorAll(".price .price__container .price__sale .price-item--sale");
+      const product_compare_price = document.querySelectorAll(".price .price__container .price__sale s");
+      var product_variant_r_price = current_variant.price;
+      var sale_price = current_variant.compare_at_price;
+      for (let p = 0; p < product_regular_price.length; p++) {
+        let pr_price = product_regular_price[p];
+        pr_price.textContent = '';
+        pr_price.textContent = curr_symbol + product_variant_r_price;
+      }
+
+      for (let s = 0; s < product_compare_price.length; s++) {
+        if (sale_price) {
+          let sl_price = product_compare_price[s];
+          sl_price.textContent = '';
+          sl_price.textContent = curr_symbol + sale_price;
+        } else {
+          let sl_price = product_compare_price[s];
+          sl_price.textContent = '';
+        }
+      }
+
+// for variant img
+
+
+      var variant_dy_img = productData.product.images;
+      var variant_img_st = document.querySelector(".product__doc_img img"); // Get the img element by id
+      var main_productImage = document.querySelector(".main_images .prd_img.slick-active img");
+      var thumb_images_all = document.querySelectorAll(".thum_images .prd_img.slick-slide img");
+      var thumb_images_active = document.querySelector(".thum_images prd_img .slick-slide.slick-current.slick-active img");
+
+// Create an array to store matching images
+      var matchingImages = [];
+
+      const updated_option = current_variant.title;
+
+// Hide all images in thumb_images_all
+      thumb_images_all.forEach(function(image) {
+        image.style.display = "none";
+      });
+
+      for (let g = 0; g < variant_dy_img.length; g++) {
+        if (variant_dy_img[g].alt === updated_option) {
+          console.log(variant_dy_img[g].src);
+          matchingImages.push(variant_dy_img[g].src); // Add matching image source to the array
+        }
+      }
+
+// Set the first image in main_productImage and thumb_images_active if there are matching images
+      if (matchingImages.length > 0) {
+        main_productImage.src = matchingImages[0];
+        variant_img_st.src = matchingImages[0];
+        thumb_images_active.src = matchingImages[0];
+
+
+// Set the matching images in thumb_images_all and unhide them
+        for (let i = 0; i < matchingImages.length && i < thumb_images_all.length; i++) {
+          thumb_images_all[i].src = matchingImages[i];
+          thumb_images_all[i].style.display = "block"; // Unhide the matching images
+        }
+
+// Hide any extra images in thumb_images_all
+        for (let i = matchingImages.length; i < thumb_images_all.length; i++) {
+          thumb_images_all[i].style.display = "none";
+        }
+      } else {
+        console.log("No matching image found");
+      }
+
+// Now, matchingImages array will contain all the image sources related to the alt text
+      console.log(matchingImages);
+    }).catch((error) => {
+      console.error(error);
+    });
+
+    startTimer(filteredItems[0]);
+    product_compatiblity(filteredItems[0]);
+    product_item_specifications(filteredItems[0]);
+  }
+
+  function activateSwatch(swatchName, selectedValue) {
+    const swatchElements = swatches[swatchName];
+
+    if (! swatchElements) {
+      console.error('Invalid swatch name');
+      return;
+    }
+
+    swatchElements.forEach(element => {
+      const swatchValue = element.textContent.trim();
+
+      if (swatchValue === selectedValue) {
+        element.classList.add("active");
+      } else {
+        element.classList.remove("active");
+      }
+    });
+  }
+
+  function toggleSwatchAvailability(swatches, swatchName, dataArray) {
+    const swatchElements = swatches[swatchName];
+    if (! swatchElements || !Array.isArray(dataArray)) {
+      console.error('Invalid input data');
+      return;
+    }
+
+// Create a Set of swatch values from the dataArray
+    const availableSwatchValues = new Set(dataArray.map(item => item[swatchName]));
+
+// Iterate through swatch elements and enable/disable based on availability
+    swatchElements.forEach(element => {
+      const swatchValue = element.textContent.trim().replace(/”/g, '');
+      if (swatchName === 'sizes') {
+        if (Array.from(availableSwatchValues).some(item => item.includes(swatchValue))) {
+          element.removeAttribute('disabled');
+          element.style.backgroundColor = '#fefefe';
+        } else {
+          element.style.backgroundColor = '#00000008';
+          element.setAttribute('disabled', 'disabled');
+        }
+      } else if (swatchName === 'processor') {
+        if (Array.from(availableSwatchValues).some(item => item.includes(swatchValue.split('/')[0].trim()))) {
+          element.style.backgroundColor = '#fefefe';
+          element.removeAttribute('disabled');
+        } else {
+          element.style.backgroundColor = '#00000008';
+          element.setAttribute('disabled', 'disabled');
+        }
+      } else { // debugger;
+        if (Array.from(availableSwatchValues).some(item => item.includes(swatchValue.trim()))) {
+          element.style.backgroundColor = '#fefefe';
+          element.removeAttribute('disabled');
+        } else {
+          element.style.backgroundColor = '#00000008';
+          element.setAttribute('disabled', 'disabled');
+        }
+      }
+
+    });
+  }
+
+  function filterVariants(inputArray, filterObject) {
+    return inputArray.filter(item => {
+      for (const key in filterObject) {
+        if (filterObject[key] !== "") {
+          if (item[key] !== undefined && item[key] !== null && item[key] !== "") { // debugger;
+            if (key === "sizes") { // Handle the sizes attribute by splitting it into an array
+              const sizesArray = item[key].split(',').map(size => size.trim());
+
+// Check if any size in the item matches any size in the filterObject
+              const filterSizes = filterObject[key].split(',').map(size => size.trim());
+              if (filterSizes.some(filterSize => sizesArray.includes(filterSize))) {
+                continue;
+              }
+            } else if (key === "years") { // Handle the years attribute by splitting it into an array
+              const yearsArray = item[key].split(',').map(year => year.trim());
+
+// Check if any year in the item matches any year in the filterObject
+              const filterYears = filterObject[key].split(',').map(year => year.trim());
+              if (filterYears.some(filterYear => yearsArray.includes(filterYear))) {
+                continue;
+              }
+            } else if (key === 'processor') { // Handle the processor attribute by splitting it into an array
+              const processorArray = item[key].split('/').map(processor => processor.trim());
+
+// Check if any processor in the item matches any year in the filterObject
+              const filterProcessor = filterObject[key].split('/').map(processor => processor.trim());
+              if (filterProcessor.some(filterProcessor => processorArray.includes(filterProcessor))) {
+                continue;
+              }
+            } else if (item[key].replace(' ', '').includes(filterObject[key].replace(' ', ''))) {
+              continue;
+            }
+          }
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
+  function disableAndInActiveSwatches(swatch_name) {
+    swatches[swatch_name].forEach(el => {
+      el.setAttribute('disabled', 'true');
+      el.classList.remove('active');
+      el.style.backgroundColor = '#00000008';
+
+    });
+  }
+  console.log("mappedArrayOfMetaFields", mappedArrayOfMetaFields);
+
+  function disableAndInActiveSwatchesOnPageLoad() {
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('model');
+    disableAndInActiveSwatches('sizes');
+    disableAndInActiveSwatches('processor');
+  }
+
+  window.onload = disableAndInActiveSwatchesOnPageLoad;
+
+  function onSelectYear(year) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('model');
+    disableAndInActiveSwatches('sizes');
+    disableAndInActiveSwatches('processor');
+
+    for (const key in selected_Swatches) {
+      selected_Swatches[key] = "";
+    }
+
+
+
+    selected_Swatches.years = year;
+    console.log("onSelectYear selected_Swatches", selected_Swatches);
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+
+    console.log("onSelectYear filteredItems", filteredItems);
+
+    toggleSwatchAvailability(swatches, 'model', filteredItems);
+
+    activateSwatch('years', year);
+  }
+
+  function onSelectModel(model) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('sizes');
+    disableAndInActiveSwatches('processor');
+
+    for (const key in selected_Swatches) {
+      if (key !== 'years') 
+        selected_Swatches[key] = "";
+      
+
+
+
+    }
+
+    selected_Swatches.model = model;
+    console.log("onSelectModel selected_Swatches", selected_Swatches);
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+    console.log("onSelectModel filteredItems", filteredItems);
+
+    toggleSwatchAvailability(swatches, 'sizes', filteredItems);
+
+    activateSwatch('model', model);
+  }
+
+  function onSelectSize(size) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('processor');
+
+    for (const key in selected_Swatches) {
+      if (key !== 'years' && key !== 'model') 
+        selected_Swatches[key] = "";
+      
+
+
+
+    }
+
+    selected_Swatches.sizes = size;
+    console.log("onSelectSize selected_Swatches", selected_Swatches);
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+    console.log("onSelectSize filteredItems", filteredItems);
+    toggleSwatchAvailability(swatches, 'processor', filteredItems);
+
+    activateSwatch('sizes', size + '”');
+
+  }
+
+  function onSelectProcessor(processor) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    disableAndInActiveSwatches('dockType');
+
+// debugger;
+    for (const key in selected_Swatches) {
+      if (key !== 'years' && key !== 'model' && key !== 'sizes' && key !== 'processor') {
+        selected_Swatches[key] = "";
+      }
+
+    }
+
+    selected_Swatches.processor = processor;
+    console.log("onSelectProcessor selected_Swatches", selected_Swatches);
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+    console.log("onSelectProcessor filteredItems", filteredItems);
+
+    toggleSwatchAvailability(swatches, 'dockType', filteredItems);
+
+    activateSwatch('processor', processor);
+  }
+
+  function onSelectBundle(docType) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    selected_Swatches.dockType = docType;
+    console.log("onSelectBundle selected_Swatches", selected_Swatches)
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+    console.log("onSelectBundle filteredItems", filteredItems)
+
+    activateSwatch('dockType', docType);
+
+    if (filteredItems.length > 0) {
+      variant_id(filteredItems[0].id);
+    }
+
+
+  }
+</script>

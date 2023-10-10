@@ -55,7 +55,18 @@
     left: 10px;
 }
 
-
+.image-title h1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    z-index: 1;
+    font-size: 72px;
+    font-weight: 700;
+    
+}
 @media only screen and (max-width: 768px) {
     .slider-image {
         height: 60vh; 
@@ -84,6 +95,9 @@
 <div class="slider-container">
     <div class="image-container Pre_slide">
         {% for block in section.blocks %}
+            <div class="image-title">
+                <h1>{{ block.settings.slide_title }}</h1>
+            </div>
             <div class="slider-image">
                 <img width="100%" src="{{ block.settings.slide_image | img_url: 'master' }}">
             </div>
