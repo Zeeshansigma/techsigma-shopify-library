@@ -85,7 +85,7 @@
     <div class="image-container Pre_slide">
         {% for block in section.blocks %}
             <div class="slider-image">
-                <img src="{{ block.settings.slide_image | img_url: 'master' }}">
+                <img width="100%" src="{{ block.settings.slide_image | img_url: 'master' }}">
             </div>
 
         {% endfor %}
