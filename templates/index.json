@@ -90,12 +90,28 @@
             "slide_image": "shopify:\/\/shop_images\/zee-2image.webp",
             "slide_title": "third slider"
           }
+        },
+        "827c2197-097a-42b5-890c-0f9e8eb86216": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/abou-new-02.jpg",
+            "slide_title": "fourth slider"
+          }
+        },
+        "32189809-ebf0-493b-a4c3-b6b72443fb8a": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/abou-new-01.jpg",
+            "slide_title": "fifth slider"
+          }
         }
       },
       "block_order": [
         "template--21424957423931__467e2501-d751-4219-8dfc-cb9f699f0c21-slide-1",
         "template--21424957423931__467e2501-d751-4219-8dfc-cb9f699f0c21-slide-2",
-        "4030622d-7ba6-4575-939b-3f0476625376"
+        "4030622d-7ba6-4575-939b-3f0476625376",
+        "827c2197-097a-42b5-890c-0f9e8eb86216",
+        "32189809-ebf0-493b-a4c3-b6b72443fb8a"
       ],
       "settings": {
         "title": "Slideshow-w"
