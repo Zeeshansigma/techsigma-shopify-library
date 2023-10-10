@@ -70,20 +70,6 @@
     "f1af7dfc-b305-4e74-820f-de3491e083eb": {
       "type": "new-main-slider",
       "blocks": {
-        "6a0535e4-c73c-4b1c-8fc2-f7bb7b272f7b": {
-          "type": "slide",
-          "settings": {
-            "slide_image": "shopify:\/\/shop_images\/abou-new-02.jpg",
-            "slide_title": "first slider"
-          }
-        },
-        "3e5734d6-7b78-4584-bd5d-7569f1d366e2": {
-          "type": "slide",
-          "settings": {
-            "slide_image": "shopify:\/\/shop_images\/abou-new-01.jpg",
-            "slide_title": "second slider"
-          }
-        },
         "6c07d1b9-3574-450c-b34e-ba0cafd0bb42": {
           "type": "slide",
           "settings": {
@@ -91,19 +77,41 @@
             "slide_title": "third slider"
           }
         },
-        "c3f63899-e56d-4f19-8709-a649897a9d66": {
+        "3284667c-bd07-46d8-abd2-eaabe92687c3": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify:\/\/shop_images\/abou-new-02.jpg",
-            "slide_title": "fourth slider"
+            "slide_image": "shopify:\/\/shop_images\/zee-2image.webp",
+            "slide_title": "third slider"
+          }
+        },
+        "47e589ee-d8ab-44f5-bdd9-749f34b29b8f": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/zee-2image.webp",
+            "slide_title": "third slider"
+          }
+        },
+        "8bf5c9d1-7c5d-4263-8965-427e33fce659": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/zee-2image.webp",
+            "slide_title": "third slider"
+          }
+        },
+        "4d5cd83a-d802-4ffc-aead-9681214393f7": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify:\/\/shop_images\/zee-2image.webp",
+            "slide_title": "third slider"
           }
         }
       },
       "block_order": [
-        "6a0535e4-c73c-4b1c-8fc2-f7bb7b272f7b",
-        "3e5734d6-7b78-4584-bd5d-7569f1d366e2",
         "6c07d1b9-3574-450c-b34e-ba0cafd0bb42",
-        "c3f63899-e56d-4f19-8709-a649897a9d66"
+        "3284667c-bd07-46d8-abd2-eaabe92687c3",
+        "47e589ee-d8ab-44f5-bdd9-749f34b29b8f",
+        "8bf5c9d1-7c5d-4263-8965-427e33fce659",
+        "4d5cd83a-d802-4ffc-aead-9681214393f7"
       ],
       "settings": {
         "title": ""
