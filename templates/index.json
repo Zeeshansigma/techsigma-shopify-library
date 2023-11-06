@@ -108,11 +108,45 @@
       "settings": {
         "title": ""
       }
+    },
+    "b4d680a5-6936-4789-a95b-3d60e87536e4": {
+      "type": "apps",
+      "blocks": {
+        "16b43010-a1e1-41d3-bbab-6ed5d16026dd": {
+          "type": "shopify:\/\/apps\/boost-ai-search-discovery\/blocks\/recommendation\/7fc998ae-a150-4367-bab8-505d8a4503f7",
+          "settings": {
+            "widgetId": "homepage-815320"
+          }
+        }
+      },
+      "block_order": [
+        "16b43010-a1e1-41d3-bbab-6ed5d16026dd"
+      ],
+      "settings": {
+      }
+    },
+    "f346d153-ba77-49af-aa54-e7201d2ea41a": {
+      "type": "apps",
+      "blocks": {
+        "6162de6f-279c-4888-9b06-29776fc9d79f": {
+          "type": "shopify:\/\/apps\/boost-ai-search-discovery\/blocks\/recommendation\/7fc998ae-a150-4367-bab8-505d8a4503f7",
+          "settings": {
+            "widgetId": "homepage-343208"
+          }
+        }
+      },
+      "block_order": [
+        "6162de6f-279c-4888-9b06-29776fc9d79f"
+      ],
+      "settings": {
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
-    "f1af7dfc-b305-4e74-820f-de3491e083eb"
+    "f1af7dfc-b305-4e74-820f-de3491e083eb",
+    "b4d680a5-6936-4789-a95b-3d60e87536e4",
+    "f346d153-ba77-49af-aa54-e7201d2ea41a"
   ]
 }

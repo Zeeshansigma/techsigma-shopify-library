@@ -186,6 +186,14 @@
           "shadow": "#121212"
         }
       }
+    },
+    "blocks": {
+      "2e67b513-aa9a-4141-8834-da8915c4e11c": {
+        "type": "shopify:\/\/apps\/boost-ai-search-discovery\/blocks\/boost-sd\/7fc998ae-a150-4367-bab8-505d8a4503f7",
+        "disabled": false,
+        "settings": {
+        }
+      }
     }
   },
   "presets": {
