@@ -2,7 +2,6 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
-      "disabled": true,
       "settings": {
         "show_collection_description": true,
         "show_collection_image": false,
@@ -11,7 +10,6 @@
     },
     "product-grid": {
       "type": "main-collection-product-grid",
-      "disabled": true,
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
@@ -28,44 +26,10 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "c9ceb313-b5f3-4deb-ad61-120a4f40801b": {
-      "type": "apps",
-      "blocks": {
-        "ec9fd82f-5155-42cb-af56-df1b76fa0dd6": {
-          "type": "shopify:\/\/apps\/boost-ai-search-discovery\/blocks\/product-filter\/7fc998ae-a150-4367-bab8-505d8a4503f7",
-          "settings": {
-          }
-        }
-      },
-      "block_order": [
-        "ec9fd82f-5155-42cb-af56-df1b76fa0dd6"
-      ],
-      "settings": {
-      }
-    },
-    "95651df2-ee03-47a6-9395-3019738a7e7a": {
-      "type": "apps",
-      "blocks": {
-        "ed9ce5e0-af5e-494f-b414-afd5dad08851": {
-          "type": "shopify:\/\/apps\/boost-ai-search-discovery\/blocks\/recommendation\/7fc998ae-a150-4367-bab8-505d8a4503f7",
-          "settings": {
-            "widgetId": "collectionpage-011747"
-          }
-        }
-      },
-      "block_order": [
-        "ed9ce5e0-af5e-494f-b414-afd5dad08851"
-      ],
-      "settings": {
-      }
     }
   },
   "order": [
-    "c9ceb313-b5f3-4deb-ad61-120a4f40801b",
     "banner",
-    "product-grid",
-    "95651df2-ee03-47a6-9395-3019738a7e7a"
-  ],
-  "wrapper": ".boost-sd__product-filter-fallback"
+    "product-grid"
+  ]
 }
