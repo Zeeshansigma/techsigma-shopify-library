@@ -1476,5 +1476,16 @@
         "default": true
       }
     ]
+  },
+  {
+    "name": "gift",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "giftid",
+        "label": "Gifts",
+        "default": "<p>Buy 2 and get 1 gift<\/p>"
+      }
+    ]
   }
 ]
