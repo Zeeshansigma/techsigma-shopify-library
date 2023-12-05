@@ -1,0 +1,107 @@
+<section class="pro-tab-section">
+  <div class="pro-tab-info page-width">
+    <h2 class="title">Ascrono Desk Diaries</h2>
+    <p>deos from Ascrono Docking Station users from all around the world!</p>
+  </div>
+  <!-- pro-tab-info -->
+  <div class="tab-wrap">
+    <ul class="nav nav-tabs pro-tabs page-width " id="myTab" role="tablist">
+      {% for block in section.blocks %}
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="home-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#home"
+            type="button"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+          >
+            {{ block.settings.nav_li_data }}
+          </button>
+        </li>
+      {% endfor %}
+      <!--
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+        </li>
+      -->
+    </ul>
+    <!-- nav-tabs -->
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <!-- Swiper -->
+          <div class="swiper mySwiper tabvideo">
+            <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+              
+              <div class="swiper-slide">
+                <video class="video" loop muted autoplay playsinline>
+  <source src="{{ block.settings.product_description_video | file_url }}" type="video/mp4">
+</video>
+              </div>
+      {% endfor %}
+              
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+      <!--
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">2</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">3</div>
+      -->
+    </div>
+    <!-- tab-content -->
+  </div>
+  <!-- tab-wrap -->
+</section>
+<script>
+  var swiper = new Swiper(".tabvideo", {
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+</script>
+{% schema %}
+{
+  "name": "Product Tab Slider",
+  "settings": [
+
+  ],
+  "max_blocks": 5,
+  "blocks": [
+     {
+       "name": "Tab",
+       "type": "Tab",
+       "settings": [
+         {
+           "type": "text",
+           "id": "nav_li_data",
+           "label": "ADD Tab"
+         },
+         {
+  "type": "video_url",
+  "id": "product_description_video",
+  "label": "Product description video",
+  "accept": [
+    "youtube",
+    "vimeo"
+  ]
+}
+       ]
+     }
+  ],
+  "presets": [
+    {
+      "name": "Product Tab Slider"
+
+    }
+  ]
+}
+{% endschema %}

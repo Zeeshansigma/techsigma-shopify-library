@@ -1,0 +1,59 @@
+
+.pro-video-section h2.title.inline-richtext.h1 {
+      margin: 40px 0 12px 0;
+}
+.title-wrapper.title-wrapper--no-top-margin.scroll-trigger.animate--slide-in p{
+  letter-spacing: -0.32px;
+}
+
+.pro-video-section{
+  text-align:center;
+  color: #1f1f1f;
+  font-family:'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding-top:60px;
+  padding-bottom:60px;
+}
+.pro-video-section .video-section__media {
+  border:none;
+}
+.pro-video-section .title{
+  font-family:'Montserrat', sans-serif;
+  color: #1f1f1f;
+  font-weight: 700;
+}
+.pro-video-wrap,.pro-video-section .pro-video,.pro-video-section .video-section__poster,
+.pro-video-wrap video{
+  border-radius: 40px;
+}
+.video-section__media.media-fit-cover video{
+  object-fit: cover;
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.video-section__media{
+  /* padding-bottom:0 !important; */
+}
+@media screen and (max-width: 1660px) and (min-width: 1368px) {
+  
+.pro-video-section .title{
+  font-size:45px;
+    line-height: 132%; /* 18.48px */
+    letter-spacing: -0.42px;
+}
+
+  .pro-video-section{
+      font-size:14px;
+    line-height: 110%; /* 26.4px */
+    letter-spacing: -0.48px
+  }
+}
+@media screen and (max-width: 991px){
+  .pro-video-section h2.title.inline-richtext.h1 {
+    margin: 0px 0 12px 0;
+  }
+  .pro-video-section{
+    padding-top: 0px !important
+  }
+}

@@ -1,0 +1,57 @@
+{{ "custom-featured-collection.css" | asset_url | stylesheet_tag }}
+<section class="custom-featured-section ">
+  <div class="cf-wrap page-width">
+    <h2 class="title">{{ section.settings.main-heading }}</h2>
+    <!-- <h2 class="title">Featured Collection</h2> -->
+    {% assign custom_collection = collections[section.settings.custom_collection] %}
+{% comment %} {% assign limit = block.settings.number_of_products | default: 4 %}
+{% assign sort_order = block.settings.sort_order | default: 'best-selling' %}
+{% assign sorted_products = custom_collection.products | sort: sort_order %} {% endcomment %}
+
+    <div class="row">
+      {% for product in custom_collection.products limit:4 %}
+      <div class="cf-col-box col-md-3 col-sm-6 col-xs-6">
+      
+        <div class="cf-col-wrap">
+          <div class="cf-col-img">
+            
+            <img src="{{  product.featured_image | img_url: 'master' }}" alt="">
+            <!-- <img src="{{ section.settings.image | img_url:'master' }}" alt=""> -->
+          </div>
+          <div class="cf-col-info">
+            <h3 class="sub-title"> {{ product.title }} </h3>
+            
+            <!-- <h3 class="sub-title">{{ section.settings['para-heading'] }}</h3> -->
+            <h4>{{ product.price |  money }} <span> {{ product.compare_at_price |  money }} </span></h4>
+          </div>
+        </div>
+        
+        <!--cf-col-wrap-->
+      </div><!--cf-col-box-->
+    {% endfor %}
+      <button class="btn">view all</button>
+    </div><!--row-->
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Regular Featured",
+  "settings": [
+    {
+  "type": "text",
+  "id": "main-heading",
+  "label": "main Heading"
+},
+{
+  "type": "collection",
+  "id": "custom_collection",
+  "label": "Collection"
+}
+  ],
+    "presets": [
+  {
+    "name": "Regular Featured"
+  }
+]
+}
+{% endschema %}

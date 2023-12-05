@@ -1,0 +1,261 @@
+<style>
+  .accordion-body p{
+    font-weight:550;
+  }
+  .rotate{
+    transform:rotate(360deg);
+  }
+  .accordion-collapse.collapse{
+    transition:  3s ease;
+  }
+  .accordion-button[aria-expanded="true"] .rotate-svg{
+    transform:rotate(360deg);
+    rotate: 0deg ;
+  }
+
+
+ 
+</style>
+<!-- product_details-section start -->
+{% for variant in product.variants %}
+  {% assign var_color = variant.metafields.custom.color | uniq %}
+  {% if var_color %}
+    <!-- {{ var_color }} -->
+    {% endif %}
+  
+  {% assign var_material = variant.metafields.custom.material | uniq %}
+  {% if var_material %}
+    <!-- {{ var_material }} -->
+    {% endif %}
+  
+  {% assign var_ports = variant.metafields.custom.number_of_ports | uniq %}
+  {% if var_ports %}
+    <!-- {{ var_ports }} -->
+    {% endif %}
+
+  {% assign var_hardware_inter = variant.metafields.custom.hardware_interfaces | uniq %}
+  {% if var_hardware_inter %}
+    <!-- {{ var_hardware_inter }} -->
+    {% endif %}
+  
+
+  {% assign var_itemWeight = variant.metafields.custom.item_weight | uniq %}
+  {% if var_itemWeight %}
+    <!-- {{ var_itemWeight }} -->
+    {% endif %}
+  
+
+  {% assign var_itemDimensions = variant.metafields.custom.item_dimensions_lxwxh_ | uniq %}
+  {% if var_itemDimensions %}
+    <!-- {{ var_itemDimensions }}<br> -->
+    {% endif %}
+
+  {% assign varComapt = variant.metafields.custom.variant_compatibility.value | uniq  %}
+  {% if varComapt %}
+<!-- {{ varComapt }} -->
+    {% endif %}
+  {% endfor %}
+{{ "product-detail-asc.css" | asset_url | stylesheet_tag }}
+<section class="product_details_section page-width" id="product-details">
+  <h2 class="title">{{ section.settings.heading }}</h2>
+  <div class="accordion" id="accordionExample">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 accordion-col">
+          <div class="accordion-item ">
+            <h3 class="accordion-header" id="headingOne">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseOne"
+              >
+                {{ section.settings['desc-heading'] }}
+                <svg class="rotate-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"   data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseOne">
+<g clip-path="url(#clip0_139_2201)">
+<path d="M18 15L12 9L6 15" stroke="#6219FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_139_2201">
+<rect width="24" height="24" fill="white" transform="matrix(-1 0 0 -1 24 24)"/>
+</clipPath>
+</defs>
+</svg> 
+            </button>
+
+            </h3>
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse
+               accordion-transition"
+              aria-labelledby="headingOne"
+              
+            >
+              <div class="accordion-body">
+                <!-- <p>{{ product.description }}</p> -->
+                <ul class="acc-list">
+                  <li><span class="acc-label">Item Dimensions (LxWxH)</span><span class="acc-detail" id="dimensions">10.4 in x 4.58 x 5.1 inches (26.4 x 11.65 x 12.95 cm)</span></li>
+                  <li><span class="acc-label">Item Weight</span><span class="acc-detail" id="weight">10.4 in x 4.58 x 5.1 inches (26.4 x 11.65 x 12.95 cm)</span></li>
+                  <li><span class="acc-label">Hardware Interfaces</span><span class="acc-detail" id="hardware">10.4 in x 4.58 x 5.1 inches (26.4 x 11.65 x 12.95 cm)</span></li>
+                  <li><span class="acc-label">Number of ports</span><span class="acc-detail" id="ports">10.4 in x 4.58 x 5.1 inches (26.4 x 11.65 x 12.95 cm)</span></li>
+                  <li><span class="acc-label">Material</span><span class="acc-detail" id="material">10.4 in x 4.58 x 5.1 inches (26.4 x 11.65 x 12.95 cm)</span></li>
+                  <li><span class="acc-label">Color</span><span class="acc-detail" id="color">10.4 in x 4.58 x 5.1 inches (26.4 x 11.65 x 12.95 cm)</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 accordion-col accordion-col1">
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="headingTwo">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                {{ section.settings['desc-heading-2'] }}
+                <svg class="rotate-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"    data-bs-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseOne">
+<g clip-path="url(#clip0_139_2201)">
+<path d="M18 15L12 9L6 15" stroke="#6219FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_139_2201">
+<rect width="24" height="24" fill="white" transform="matrix(-1 0 0 -1 24 24)"/>
+</clipPath>
+</defs>
+</svg>
+              </button>
+              
+            </h3>
+            <div
+              id="collapseTwo"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingTwo"
+            >
+              <div class="accordion-body">
+                <p id="compatiblity">compatible with MacBook Pro 2023 M1</p> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- product_details-section end -->
+<script>
+// $(document).ready(function () {
+//     // Function to toggle rotation based on button class
+//     function toggleRotation() {
+//         $('.accordion-header').each(function () {
+//             var svg = $(this).find('svg.rotate-svg');
+
+//             if ($(this).find('button').hasClass('collapsed')) {
+//                 svg.removeClass('rotate');  // Remove rotation class
+//             } else {
+//                 svg.addClass('rotate');  // Add rotation class
+//             }
+//         });
+//     }
+
+//     // Call the toggleRotation function on page load
+//     toggleRotation();
+
+//     // Toggle rotation on accordion header click
+//     $('.accordion-header').click(function () {
+//         toggleRotation();  // Call the toggleRotation function on header click
+//     });
+
+  
+//     function checkScreenWidth() {
+//     if ($(window).width() >= 576) {
+//         // Add the "show" class to the first accordion item
+//         $('.accordion-collapse.collapse:first').addClass('show');
+//         // Remove the "rotate" class
+//         $('.rotate').removeClass('rotate');
+//     } else {
+//         // Remove the "show" class from the first accordion item
+//         $('.accordion-collapse.collapse:first').removeClass('show');
+//         // Add the "rotate" class
+//         // $('.rotate-svg').addClass('rotate');
+//         $('.accordion-collapse.accordion-transition.collapse.show').addClass('rotate');
+//     }
+// }
+
+// $(".accordion-header").click(function(){
+//   $(this).addClass('show');
+// });
+
+
+//     // Call checkScreenWidth on page load and window resize
+//     checkScreenWidth();
+//     $(window).on('resize', checkScreenWidth);
+// });
+
+
+
+</script>
+
+<script>
+      var js_color = "{{ var_color }}";
+      console.log(js_color);
+    document.querySelector("#color").textContent = js_color ;
+    var js_material = "{{ var_material }}";
+      console.log(js_material);
+    document.querySelector("#material").textContent = js_material ;
+    var js_ports = "{{ var_ports }}";
+      console.log(js_ports);
+    document.querySelector("#ports").textContent = js_ports ;
+    var js_hardware = "{{ var_hardware_inter }}";
+      console.log(js_hardware);
+    document.querySelector("#hardware").textContent = js_hardware ;
+    var js_ItemWeight = "{{ var_itemWeight }}";
+      console.log(js_ItemWeight);
+    document.querySelector("#weight").textContent = js_ItemWeight ;
+    var js_dimensions = "{{ var_itemDimensions }}";
+      console.log(js_dimensions);
+    document.querySelector("#dimensions").textContent = js_dimensions ;
+
+  // var js_comapt = "{{ varComapt }}";
+  //     console.log(js_comapt);
+  //   document.querySelector("#compatiblity").textContent = js_comapt ;
+  
+    </script>
+
+{% schema %}
+{
+  "name": "Product Detail Accordion",
+  "settings": [
+    {
+  "type": "text",
+  "id": "heading",
+  "label": "Main Heading"
+},
+    {
+  "type": "text",
+  "id": "desc-heading",
+  "label": "Description Heading"
+},
+    {
+  "type": "text",
+  "id": "desc-heading-2",
+  "label": "Description Heading 2"
+}
+  ],
+    "presets": [
+  {
+    "name": "Product Detail Accordion"
+  }
+]
+}
+{% endschema %}

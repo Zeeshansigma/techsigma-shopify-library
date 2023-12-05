@@ -1,0 +1,54 @@
+.product-contact-section{
+  padding: 0px 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.product-contact-section .product-contact{
+  border-radius: 40px;
+border: 1px solid var(--purple-20, rgba(98, 25, 250, 0.20));
+background: var(--purple-5, rgba(98, 25, 250, 0.05));
+  padding:40px 20px;
+  font-family:'Montserrat', sans-serif;
+font-size: 16px;
+font-weight: 400;
+      max-width: 1120px;
+    width: 100%;
+  margin:auto;
+}
+@media screen and (max-width: 991px) {
+  .product-contact-section .product-contact{
+    padding:16px 20px;
+  }
+  .product-contact-section .rich-text {
+    padding:0px;
+  }
+  .product-contact .subtitle, .product__doc_box h4, .green-txt, .black-txt {
+    font-size: 8px;
+    
+    font-family: Montserrat;
+    font-size: 8px;
+    font-style: normal;
+    /* font-weight: 700; */
+    line-height: normal;
+    letter-spacing: -0.16px;
+      margin-bottom: 24px;
+}
+.product-contact .subtitle ,.black-txt{
+  color: var(--Black, #1F1F1F);
+  text-align: center;
+}
+  .rich-text__wrapper.rich-text__wrapper--center.page-width p{
+    color: var(--Black, #1F1F1F);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: -0.2px;
+}
+  .product-contact-section .product-contact {
+    border-radius: 16px !important;
+}
+}

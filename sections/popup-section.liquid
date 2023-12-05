@@ -1,0 +1,242 @@
+<style>
+  /* .main-popup{
+    position: absolute;
+    z-index: 999;
+  } */
+  .main-popup{
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background overlay */
+    z-index: 999;
+  }
+  #popup {
+  background-color: #fff;
+  max-width: 350px;
+    width:100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+    height:411px;
+  box-shadow: 0px 8px 8px -4px #10182808;
+}
+#slider {
+position: relative;
+height: 200px;
+}
+#slides {
+display: flex;
+transition: transform 0.5s ease-in-out;
+}
+.custom-slide {
+min-width: 350px;
+text-align: center;
+}
+#circles {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: end;
+    z-index: 999;
+    justify-content: center;
+}
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    display: block !important;
+}
+#buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+  .custom-slide:hover{
+    transform: none;
+  }
+  img.popup-image {
+    width: 352px;
+    height: 200px;
+    object-fit: contain;
+}
+#slider {
+    position: relative;
+    height: 350px;
+    width: 100%;
+}
+.custom-slide {
+    width: 100%;
+    padding: 24px 24px 0 24px;
+    height: 100%;
+}
+  .image-cont, .image-cont img{
+    width: 100%;
+}
+#buttons button {
+    width: 47%;
+    border-radius: 6px;
+    border: none;
+    padding: 10px 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 19px;
+}
+  .nex-btn{
+    background: linear-gradient(138.54deg,#536FF6 -14.81%,#5132F5 94.85%);
+    color: #fff;
+  }
+  h3.popup-title {
+    font-size: 20px;
+    line-height: 22px;
+    color: #101828;
+    letter-spacing: -0.02rem;
+    margin-bottom: 12px;
+}
+  .text-cont {
+    margin-top: 20px;
+}
+.text-cont p {
+    font-size: 14px;
+    line-height: 20px;
+}
+  .main-popup {
+    display:none;
+    justify-content: center;
+  }
+  .popup-des{
+    margin-left: 0 !important;
+  }
+  .bundle_heading p.popup-des{
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+@media screen and (max-width:480px){
+  /* .main-popup{
+    left: 7%;
+    top: 41%; 
+    transform: translate(7%, 41%);
+
+  } */
+}
+</style>
+
+<div class="main-popup">
+   <div id="popup">
+    <div id="slider">
+      <div id="slides">
+        {% assign custompopup = section.blocks | where: 'type', 'popupimg' %}
+        {% for block in custompopup %}
+        <div class="custom-slide">
+          <div class="image-cont">
+            <img class="popup-image" src="{{ block.settings.image_pop |  img_url: 'master' }}" alt="Image 1">
+          </div>
+          <div class="text-cont">
+            <h3 class="popup-title"> {{ block.settings.popup_heading }} </h3>
+            <p class="popup-des"> {{ block.settings.popup_des }} </p>
+        </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div id="circles">
+        {% for block in custompopup %}
+          <div class="circle" onclick="goToSlide({{ forloop.index0 }})"></div>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="buttons">
+      <button onclick="closePopup()">Close</button>
+      <button class="nex-btn" onclick="nextSlide()">Next</button>
+    </div>
+
+  </div>
+ 
+</div>
+<script>
+        var currentSlide = 0;
+      
+        function updateCircles() {
+          var circles = document.querySelectorAll('.circle');
+          circles.forEach((circle, index) => {
+            circle.style.backgroundColor = index === currentSlide ? '#008CBA' : '#ccc';
+          });
+        }
+      
+        function goToSlide(index) {
+          var slides = document.getElementById('slides');
+          slides.style.transform = 'translateX(' + (-index * 350) + 'px)';
+          currentSlide = index;
+          updateCircles();
+        }
+      
+        function nextSlide() {
+          var totalSlides = document.querySelectorAll('.custom-slide').length;
+          currentSlide = (currentSlide + 1) % totalSlides;
+          document.querySelectorAll('.custom-slide');
+          goToSlide(currentSlide);
+        }
+
+  function closePopup() {
+    var popup_main = document.querySelector('.main-popup');
+    popup_main.style.display = 'none';
+  }
+
+  function showPopup() {
+    var popup_main = document.querySelector('.main-popup');
+    popup_main.style.display = 'flex';
+  }
+
+  updateCircles();  // Update circles on page load
+</script>
+      
+
+      
+      {% schema %}
+  {
+    "name": "Popup Section",
+    "settings": [],
+    "blocks": [
+    {
+       "name": "How To",
+       "type": "popupimg",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "image_pop",
+           "label": "ADD Image"
+         },{
+          "type": "text",
+          "id": "popup_heading",
+          "label": "ADD Heading"
+         },{
+          "type": "text",
+          "id": "popup_des",
+          "label": "ADD Description"
+         }
+       ]
+      }
+    ],
+     
+    "presets": [
+  {
+    "name": "Popup Section"
+  }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

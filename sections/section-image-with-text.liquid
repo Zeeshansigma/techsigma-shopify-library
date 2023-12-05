@@ -1,0 +1,130 @@
+{{ "section-image-with.css" | asset_url | stylesheet_tag }}
+<style>
+  /* .space-section{
+    margin-top:{{ section.settings.space_top_image }}px;
+    margin-bottom:{{ section.settings.space_bottom_image }}px;
+  } */
+  .product-txt-img-section .product-txt-img-wrap {
+    border-radius: 40px;
+    width: 100%;
+    padding: 60px 120px;
+    align-items: center;
+    position: relative;
+
+  }
+  .product-txt-img-wrap.true {
+    background: none !important;
+    padding: 60px;
+    border: none !important;
+  }
+  .product-txt-img-wrap.true .pro-txt-img-info {
+    padding-left: 0;
+    padding-right: 90px;
+  }
+  .product-swap.true {
+    flex-direction: row-reverse;
+  }
+  .row.product-swap.true .pro-txt-img-box {
+    text-align: left;
+  }
+  .row.product-swap.true .pro-txt-img-info {
+    padding-left: 90px;
+    padding-right: 0;
+  }
+</style>
+<section class="space-section product-txt-img-section  page-width" style="margin-top:{{ section.settings.space_top_image }}px; margin-bottom:{{ section.settings.space_bottom_image }}px;">
+  <div style="background: {{ section.settings.background_linear_ascc }};border:{{ section.settings.border_width }}px solid {{ section.settings.border_color }};" class="product-txt-img-wrap {{ section.settings.bg_unset }}">
+    <div class="row product-swap {{ section.settings.image_align_left }}">
+      <div class="pro-txt-img-info col-md-6 col-sm-12">
+        <h2 style="color:{{ section.settings.heading_colorr }};" class="title">{{ section.settings['main-heading'] }}</h2>
+        <p style="color:{{ section.settings.text_color }};" class="productivity-clr">{{ section.settings['para-heading'] }}</p>
+      </div>
+      <div class="pro-txt-img-box col-md-6 col-sm-12">
+        <img src="{{ section.settings.image | img_url:'master' }}" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Section Image with Text",
+    "settings": [
+      {
+        "type": "range",
+        "id": "space_top_image",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "unit": "px",
+        "label": "Set Space Top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "space_bottom_image",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "unit": "px",
+        "label": "Set Space Bottom",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "bg_unset",
+        "label": "Background None",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "image_align_left",
+        "label": "Change The Image Direction",
+        "default": false
+      }, {
+        "type": "color_background",
+        "id": "background_linear_ascc",
+        "label": "Background",
+        "default": "linear-gradient(139deg, #5132F5 -14.81%, #536FF6 94.85%)"
+      }, {
+        "type": "range",
+        "id": "border_width",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "unit": "px",
+        "label": "ADD Border",
+        "default": 0
+      }, {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border Color"
+      }, {
+        "type": "text",
+        "id": "main-heading",
+        "label": "main Heading"
+      }, {
+        "type": "text",
+        "id": "para-heading",
+        "label": "Paragraph Text"
+      }, {
+        "type": "color",
+        "id": "heading_colorr",
+        "label": "Heading Color",
+        "default": "#000000"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Change Paragraph Color"
+      }, {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Section Image with Text"
+      }
+    ]
+  }
+{% endschema %}

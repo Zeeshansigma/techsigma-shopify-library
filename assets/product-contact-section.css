@@ -1,0 +1,130 @@
+.product-contact-section{
+  padding: 0px 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.product-contact-section .product-contact{
+  border-radius: 40px;
+border: 1px solid var(--purple-20, rgba(98, 25, 250, 0.20));
+background: var(--purple-5, rgba(98, 25, 250, 0.05));
+  padding:40px 20px;
+  font-family:'Montserrat', sans-serif;
+font-size: 16px;
+font-weight: 400;
+      max-width: 1048px;
+    width: 100%;
+}
+.person-row{
+  justify-content: center;
+    align-items: center;
+  text-align:center;
+}
+.person-box{
+  max-width:185px;
+  margin:auto;
+}
+.person{
+  border-radius:50px;
+  width:60px;
+  height:60px;
+  position: relative;
+  z-index:1;
+}
+.person1,.person2{
+  width:48px;
+  height:48px;
+  left:15px;
+  z-index:0;
+}
+.person1{
+
+}
+.person2{
+  left:-15px;
+}
+.product-contact .subtitle{
+  color: #1F1F1F;
+font-family:'Montserrat', sans-serif;
+font-size: 14px;
+font-weight: 500;
+line-height: 20px;
+  margin-bottom:14px;
+}
+.product-contact p{
+  max-width:700px;
+  width:100%;
+  margin:auto;
+}
+.product-contact .title{
+  color: #1F1F1F;
+  font-family:'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin:0px 0px 0px 0px;
+}
+.product-contact .btn,#loadMore{
+  margin:16px auto;
+  max-width:168px;
+  width:100%;
+  text-align:center;
+  color: #FFF;
+  font-family:'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+    border-radius: 8px;
+  background: linear-gradient(139deg, #5132F5 -14.81%, #536FF6 94.85%);
+ padding: 10px 14px;
+
+/* Shadow/xs */
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+.rich-text__heading {
+  color: #1F1F1F;
+  font-family:'Montserrat', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  margin:0px 0px 0px 0px;
+}
+.rich-text__text{
+  color: #1f1f1f;
+  font-family:'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 130%;
+  letter-spacing: -.32px;
+}
+.product-contact .btn:hover,#loadMore:hover{
+  background: linear-gradient(139deg, #536FF6 -14.81%, #5132F5 94.85%);
+}
+/*responsive css*/
+@media screen and (max-width: 1660px) and (min-width: 1368px) {
+  
+}
+@media screen and (max-width: 991px) {
+  .product-contact-section .product-contact{
+    border-radius: 8px;
+  }
+  .product-contact-section .rich-text {
+    padding:0px;
+  }
+  .product-contact-section .product-contact{
+    padding:16px 20px;
+  }
+  .product-contact .title{
+    font-size:16px;
+  }
+  .product-contact .subtitle{
+    font-size:8px;
+  }
+  .product-contact-section .product-contact,.product-contact p{
+    font-size:10px;
+  }
+  .pro-icon-with-text .icon-with-text__item span.inline-richtext{
+    font-size:9px;
+  }
+  .product-contact .btn{
+    font-size:12px;
+  }
+}

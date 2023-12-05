@@ -1,0 +1,226 @@
+
+.accordion-transition-custom {
+  transition: max-height 0.3s ease-in-out;
+}
+
+.accordian-heading{
+margin: 80px 0 12px !important;
+}
+.product-collapsible{
+  padding:0px 0px 60px 0px;
+}
+.faq-head .title, .faq-head h2{
+  color: #1F1F1F;
+  font-family:'Montserrat', sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%; /* 52.8px */
+  letter-spacing: -0.96px;
+  text-align: left;
+}
+.faq-head .caption-with-letter-spacing{
+  color: #1F1F1F;
+font-family:'Montserrat', sans-serif;
+font-size: 16px;
+font-weight: 400;
+line-height: 21px;
+letter-spacing: -0.02em;
+text-align: left;
+  margin-bottom:32px;
+text-transform: none;
+  margin-top:12px;
+  line-height: 22px;
+
+}
+.faq-body .accordion__title,.faq-body .accordion__content{
+  color: #1F1F1F;
+font-family:'Montserrat', sans-serif;
+font-size: 20px;
+font-weight: 600;
+/* line-height: 22px; */
+letter-spacing: -0.02em;
+text-align: left;
+
+}
+.faq-body .accordion__content{
+ font-weight: 400;
+}
+.details:not([open]) .accordion__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+.faq-body .accordion{
+  border-top: 1px solid #F2F2F2;
+    border-bottom: 1px solid #F2F2F2;
+}
+.collapsible-content summary:hover{
+      background: transparent;
+}
+.collapsible-content summary:hover .accordion__title{
+      text-decoration: none;
+}
+.faq-body summary{
+  padding-top:25px;
+  padding-bottom: 33px;
+}
+
+.collapsible-content {
+  position: relative;
+  z-index: 0;
+}
+
+.collapsible-section-layout {
+  padding-bottom: 5rem;
+  padding-top: 5rem;
+}
+.faq-body .accordion__content {
+  /* max-height: 0;
+  overflow: hidden;
+  transition:  3s ease; */
+  -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.faq-body .accordion[open] .accordion__content {
+  max-height: 1000px; 
+}
+
+@media screen and (max-width: 991px) {
+  .product-collapsible {
+      padding: 0px 0rem;
+  }
+  .product-collapsible  .page-width{
+    padding:0px 0px;
+  }
+  .product-collapsible .collapsible-content__wrapper {
+    padding-top: 0px;
+  }
+  .faq-body .accordion__title, .faq-body .accordion__content{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 110%; /* 17.6px */
+    letter-spacing: -0.32px;
+  }
+}
+@media screen and (min-width: 750px) {
+  .collapsible-section-layout {
+    padding-bottom: 7rem;
+    padding-top: 7rem;
+  }
+}
+.faq-body .accordion
+/* Needed for gradient continuity with or without animation so that transparent PNG images come up as we would expect */
+.collapsible-content__media {
+  background: transparent;
+}
+
+.collapsible-content__media--small {
+  height: 19.4rem;
+}
+
+.collapsible-content__media--large {
+  height: 43.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .collapsible-content__media--small {
+    height: 31.4rem;
+  }
+
+  .collapsible-content__media--large {
+    height: 69.5rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .collapsible-content__grid--reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.collapsible-content-wrapper-narrow {
+  margin: 0 auto;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  max-width: 73.4rem;
+}
+
+.collapsible-content__header {
+  word-break: break-word;
+}
+
+.collapsible-content__heading {
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .collapsible-content__heading {
+    margin-bottom: 3rem;
+  }
+}
+
+.collapsible-none-layout .accordion + .accordion {
+  border-top: 0;
+}
+
+.collapsible-row-layout .accordion:not(:first-child):not(.color-background-1) {
+  margin-top: 1rem;
+}
+
+.caption-with-letter-spacing + h2 {
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 750px) {
+  .collapsible-content .accordion {
+    margin-top: 0;
+  }
+}
+
+.collapsible-row-layout .accordion {
+  border: var(--text-boxes-border-width) solid rgba(var(--color-foreground), var(--text-boxes-border-opacity));
+  margin-bottom: 1.5rem;
+  /* Needed for gradient continuity with or without animation, the transform scopes the gradient to its container which happens already when animation are turned on */
+  transform: perspective(0);
+}
+
+.collapsible-row-layout .accordion summary,
+.collapsible-row-layout .accordion .accordion__content {
+  padding: 1.5rem;
+}
+
+.collapsible-row-layout .accordion .accordion__content {
+  padding-top: 0;
+}
+
+.collapsible-content summary:hover {
+  background: none;
+}
+
+.collapsible-content summary:hover .accordion__title {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+/* check for flexbox gap in older Safari versions */
+@supports not (inset: 10px) {
+  @media screen and (min-width: 750px) {
+    .collapsible-content__grid:not(.collapsible-content__grid--reverse) .grid__item:last-child,
+    .collapsible-content__grid--reverse .collapsible-content__grid-item {
+      padding-left: 5rem;
+      padding-right: 0;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .collapsible-content__grid:not(.collapsible-content__grid--reverse) .grid__item:last-child,
+    .collapsible-content__grid--reverse .collapsible-content__grid-item {
+      padding-left: 7rem;
+    }
+  }
+}
