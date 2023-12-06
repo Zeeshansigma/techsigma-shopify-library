@@ -1,0 +1,189 @@
+.custom-featured-section{
+    padding:0px 0px;
+  }
+.cf-wrap{
+  background: var(--light-bg, #F9FAFB);
+  padding:40px 52px;
+}
+.custom-featured-section .title{
+  color: var(--Deep-Blue, #1F2F2F);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%; /* 52.8px */
+  letter-spacing: -0.96px;
+  margin-bottom:40px;
+  margin-top:0px;
+}
+.custom-featured-section .row{
+  margin:0px -12px!important;
+}
+.cf-col-box .sub-title{
+  color: var(--Deep-Blue, #1F2F2F);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%; /* 17.6px */
+  letter-spacing: -0.32px;
+  margin-bottom:16px;
+}
+.cf-col-box{
+  padding: 0px 12px !important;
+}
+.cf-col-wrap{
+  border-radius: 8px;
+  background: var(--White, #FEFEFE);
+  display: flex;
+  padding: 24px 24px !important;
+  flex-direction: column;
+  align-items: center;
+}
+.custom-featured-section .cf-col-img{
+  margin-bottom:24px;
+}
+.custom-featured-section .cf-col-img img{
+  max-width:100%;
+}
+.cf-col-info p{
+  margin-bottom:12px;
+}
+.cf-col-info p{
+  margin-right:8px;
+}
+.cf-col-info p span{
+  color: #AAA;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 14.4px */
+      margin-left: 8px;
+}
+.cf-col-info h4{
+font-family: 'Montserrat', sans-serif;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 110%; /* 17.6px */
+letter-spacing: -0.32px;
+  background: var(--gradient, linear-gradient(139deg, #5132F5 -14.81%, #536FF6 94.85%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.cf-col-info h4 span{
+  color: #AAA;
+font-family: 'Montserrat', sans-serif;
+font-size: 11px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: -0.22px;
+text-decoration-line: strikethrough;
+}
+.custom-featured-section .btn{
+  display: flex;
+height: 44px;
+padding: 12px 16px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+align-self: stretch;
+  border-radius: 8px;
+  max-width:100%;
+  width:100%;
+background: var(--gradient, linear-gradient(139deg, #5132F5 -14.81%, #536FF6 94.85%));
+
+/* Shadow/xs */
+box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  color: #FFF;
+font-family: 'Montserrat', sans-serif;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 120%; /* 19.2px */
+text-transform: uppercase;
+  display:none;
+  margin-top:32px;
+}
+.custom-featured-section .btn:hover{
+  background: var(--gradient, linear-gradient(139deg, #536FF6 -14.81%, #5132F5 94.85%));
+}
+/*responsive css*/
+@media screen and (max-width: 1660px) and (min-width: 1368px) {
+  .custom-featured-section .title{
+    font-size:45px;
+    line-height: 132%; /* 18.48px */
+    letter-spacing: -0.42px;
+  }
+}
+@media screen and (max-width: 1367px) and (min-width: 991px) {
+  .custom-featured-section .title{
+    font-size:36px;
+    line-height: 122%; /* 18.48px */
+    letter-spacing: -0.42px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .custom-featured-section .title{
+    font-size:24px;
+    line-height: 132%; /* 18.48px */
+    letter-spacing: -0.42px;
+    margin-bottom:32px;
+  }  
+  .cf-col-box{
+    padding:3px 3px !important;
+    width:50%;
+  }
+  .cf-col-wrap{
+    padding:16px 8px !important;
+  }
+  .custom-featured-section .cf-col-img {
+      margin-bottom: 12px;
+  }
+ .cf-col-box .sub-title{
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 12px;
+    letter-spacing: 0em;
+  }
+  .cf-col-info p {
+      margin-bottom: 6px;
+  }
+  .cf-col-info p span{
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 0em;
+  }
+  .cf-col-info h4{
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 12px;
+    letter-spacing: 0em;
+  }
+  .cf-col-info h4 span{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 10px;
+    letter-spacing: -0.02em;
+
+  }
+  .custom-featured-section{
+    padding:24px 16px;
+  }
+  .cf-wrap{
+    background: var(--light-bg, #F9FAFB);
+    padding:24px 16px;
+  }
+  .custom-featured-section .row{
+    margin:0px -3px!important;
+  }
+  .custom-featured-section .btn{
+    display:block;
+  }
+}

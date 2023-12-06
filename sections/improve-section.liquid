@@ -1,0 +1,478 @@
+{{ 'improve-section-asc.css' | asset_url | stylesheet_tag }}
+<style>
+  .improve-top{
+  background: center top norepeat;
+  background-image:url({{ section.settings.bg_image | img_url:'master' }});
+}
+    .improve-top.true {
+    background: var(--electronic-indigo, {{ section.settings.first_bg_clr }});
+}
+  .improve-bg-true{
+     background: var(--electronic-indigo, {{ section.settings.second_bg_clr }});
+  }
+  .improve-bg-false {
+    background: no-repeat;
+}
+  .improve-img-info-box .sub-title,
+  .improve-img-info-box p,
+  .improve-bottom .sub-title,
+  .improve-bottom p,
+  .improve-card h3,
+  .improve-card p{
+    color:{{ section.settings.second_text_clr }}
+  }
+  .improve-top .title p,
+  .improve-top p,
+  .improve-top ul li,
+  .improve-top ul li span{
+    color:{{ section.settings.first_text_clr }}
+  }
+  .improve-left.improve-center-true {
+    width: 100%;
+    text-align: center;
+    padding: {{ section.settings.image_height }}px 0;
+}
+  .improve-right.improve-center-true{
+    display:none;
+  }
+  .main-bg-hide-true{
+    display:none;
+  }
+  .top-full-content-true {
+    padding: 168px 60px;
+        /* border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px; */
+}
+  .bootom-full-layout-true {
+    padding:120px 60px;
+    /* border-top-left-radius: 40px;
+    border-top-right-radius: 40px; */
+}
+  .bootom-full-layout-true .improve-img-info-box{
+        display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  hr.show-line-true {
+       margin: -1px auto 0;
+    padding: 0;
+    color: #fefefe33;
+    width: 80%;
+    max-width: 80%;
+    background: #fefefe33;
+    height: 1px;
+    opacity: 1;
+}
+  .improve-img-info-box{
+       display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .img-bottom-bg{
+    height:200px;
+    display:block !important;
+    width:100%;
+    border-radius:20px;
+    margin-bottom:8px;
+  }
+  .improve-card {
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid var(--gradient, #5132F5);
+    border-top:none;
+    /* border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px; */
+}
+  .improve-card h3{
+font-family: Montserrat;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: 110%; /* 22px */
+letter-spacing: -0.4px;
+  }
+  .improve-card p{
+font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; /* 18.2px */
+letter-spacing: -0.28px;
+    margin-top:8px;
+  }
+  .show-card-false{
+    display:none;
+  }
+  .show-card-true{
+    display:block;
+        padding: 60px 120px;
+  }
+  .border-main{
+      border: 1px solid var(--gradient, #5132F5) !important;
+      border-radius: 40px;
+    }
+  @media screen and (max-width:768px){
+        .top-full-content-true {
+    padding: 48px 20px !important;
+    /* border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important; */
+}
+    .improve-top .title{
+      font-size: 34px!important;
+      margin: 0;
+    }
+    .improve-top{
+      font-size: 14px!important;
+    }
+    .improve-left.improve-center-true{
+      padding: 100px 0;
+    }
+    .bootom-full-layout-true .improve-img-info-box{
+          padding: 0 !important;
+    }
+    bootom-full-layout-true{
+      border-radius:8px !important;
+      padding: 48px;
+    }
+    .row.improve-btm-row {
+        gap: 32px;
+    }
+    .improve-top{
+      padding: 48px 16px 30px!important;
+    }
+    .improve-top.false.main-bg-hide-false.top-full-content-false,.improve-top.false.main-bg-hide-false.top-full-content-false{
+      padding-bottom:100px !important;
+    }
+    .improve-img-info-box{
+      padding: 10px 23px;
+    }
+    .improve-bottom{
+          padding: 20px 16px;
+      
+    }
+    .show-card-true{
+      padding:0 32px;
+      top: -30px;
+      position: relative;
+      
+    }
+    .border-main{
+      border: 1px solid var(--gradient, #5132F5) !important;
+      border-radius: 8px;
+    }
+    
+  }
+</style>
+<section class="improve-section page-width">
+  <div class="border-main">
+  <div class="improve-top {{ section.settings.hide_bg }} main-bg-hide-{{ section.settings.main_bg_hide }} top-full-content-{{ section.settings.set_full_banner_layout }}">
+    <div class="row improve-top-row">
+      <div class="improve-left improve-center-{{ section.settings.main_text_center }} col-md-8 col-sm-12">
+        <h2 class="title">{{ section.settings['main-head'] }}</h2>
+        <p>{{ section.settings['para-text'] }}</p>
+      </div>
+      <div class="improve-right improve-center-{{ section.settings.main_text_center }} col-md-4 col-sm-12">
+        <ul>
+          <li><span>{{ section.settings.percentage_1 }}</span>{{ section.settings.txt_1 }}</li>
+          <li><span>{{ section.settings.percentage_2 }}</span>{{ section.settings.txt_2 }}</li>
+          <li><span>{{ section.settings.percentage_3 }}</span>{{ section.settings.txt_3 }}</li>
+          <li><span>{{ section.settings.percentage_4 }}</span>{{ section.settings.txt_4 }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- improve-top -->
+  {% if section.settings.show_line !=blank %}
+  <hr class="show-line-{{ section.settings.show_line }}">
+    {% endif %}
+  <div class="improve-bottom {{ section.settings.show_box }} {{ section.settings.second_bg_clr }} improve-bg-{{ section.settings.bottom_bg_clr }}">
+    <div class="row">
+      <div class="improve-img-box col-md-3 col-sm-6 col-xs-12">
+        {% if section.settings.side_image !=blank  %}
+        <img src="{{ section.settings.side_image | img_url: 'master' }}" alt="">
+          {% endif %}
+      </div>
+      {% assign text_blocks = section.blocks | where: 'type', 'text' %}
+      {% for block in text_blocks %}
+        <div class="improve-info-box col-md-3 col-sm-6 col-xs-12">
+          <h3 class="sub-title">{{ block.settings['box-heading'] }}</h3>
+          <p>{{ block.settings['box-text'] }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    
+  </div>
+  <!-- improve-bottom -->
+  <div class="improve-bottom {{ section.settings.show_box }} improve-bottom1 {{ section.settings.hide_big_img_sec }} {{ section.settings.second_bg_clr }} improve-bg-{{ section.settings.bottom_bg_clr }} bootom-full-layout-{{ section.settings.full_bottom_layout }}" >
+    <div class="row improve-btm-row">
+      {% assign image_blocks = section.blocks | where: 'type', 'image' %}
+      {% for block in image_blocks %}
+        <div class="improve-img-info-box col-md-4 col-sm-6 col-xs-12">
+          <img src="{{ block.settings.second_image_box | img_url: 'master' }}" alt="">
+          <h3 class="sub-title">{{ block.settings['second-box-heading'] }}</h3>
+          <p>{{ block.settings['second-box-text'] }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- improve-bottom -->
+  <!-- improve botom card bg -->
+  <div class="improve-card show-card-{{ section.settings.show_card }} improve-bg-{{ section.settings.bottom_bg_clr }}">
+    <div class="container">
+      <div class="row">
+      {% assign bgtext_blocks = section.blocks | where: 'type', 'bgtext' %}
+      {% for block in bgtext_blocks %}
+        <div class=" col-md-4 col-sm-6 col-xs-12"> 
+          <div class="img-bottom-bg" style=" background-color:{{ block.settings.bg_color_botom_sec }};"></div>
+        <h3> {{ block.settings.bg_heading }} </h3>
+          <p> {{ block.settings.bg_para }} </p>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+  </div>
+    <!-- improve botom card bg -->
+    </div>
+</section>
+{% schema %}
+{
+  "name": "improve Section",
+  "settings": [
+     {
+  "type": "checkbox",
+  "id": "show_box",
+  "label": "Hide Small img",
+  "default": false
+  },
+    {
+  "type": "checkbox",
+  "id": "hide_big_img_sec",
+  "label": "Show second section",
+  "default": false
+},
+    {
+  "type": "checkbox",
+  "id": "hide_bg",
+  "label": "Show Top Background Color",
+  "default": false
+},
+    {
+  "type": "checkbox",
+  "id": "bottom_bg_clr",
+  "label": "Show Bottom Background Color",
+  "default": false
+},
+{
+  "type": "checkbox",
+  "id": "main_text_center",
+  "label": "Main Text Center",
+  "default": false
+},
+    {
+  "type": "checkbox",
+  "id": "main_bg_hide",
+  "label": "Hide Main Banner",
+  "default": false
+},
+    {
+  "type": "checkbox",
+  "id": "set_full_banner_layout",
+  "label": "Set Full Content Banner Layout",
+  "default": false
+},
+    {
+  "type": "checkbox",
+  "id": "full_bottom_layout",
+  "label": "Set Full Bottom Layout",
+  "default": false
+},
+    {
+  "type": "checkbox",
+  "id": "show_line",
+  "label": "Show Line",
+  "default": false
+},
+{
+  "type": "checkbox",
+  "id": "show_card",
+  "label": "Show Cards",
+  "default": false
+},
+    {
+  "type": "range",
+  "id": "image_height",
+  "min": 100,
+  "max": 300,
+  "step": 10,
+  "unit": "px",
+  "label": "Set Image Height",
+  "default": 160
+},
+
+    {
+  "type": "color",
+  "id": "first_bg_clr",
+  "label": "Top Background color",
+  "default":"#6219FA"
+},{
+  "type": "color",
+  "id": "second_bg_clr",
+  "label": "Bottom Background color",
+  "default":"#6219FA"
+},  {
+  "type": "color",
+  "id": "first_text_clr",
+  "label": "Text color Top"
+},
+    {
+  "type": "color",
+  "id": "second_text_clr",
+  "label": "Text color Bottom"
+},
+  
+    {
+  "type": "richtext",
+  "id": "main-head",
+  "label": "Main Heading"
+},
+    {
+  "type": "text",
+  "id": "para-text",
+  "label": "Paragraph Text"
+},
+    {
+  "type": "text",
+  "id": "percentage_1",
+  "label": "Percentage First Value"
+},
+    {
+  "type": "text",
+  "id": "txt_1",
+  "label": "Add text"
+},
+     {
+  "type": "text",
+  "id": "percentage_2",
+  "label": "Percentage Second Value"
+},
+     {
+  "type": "text",
+  "id": "txt_2",
+  "label": "Add text"
+},
+     {
+  "type": "text",
+  "id": "percentage_3",
+  "label": "Percentage Third Value"
+},
+     {
+  "type": "text",
+  "id": "txt_3",
+  "label": "Add text"
+},
+     {
+  "type": "text",
+  "id": "percentage_4",
+  "label": "Percentage Four Value"
+},
+     {
+  "type": "text",
+  "id": "txt_4",
+  "label": "Add text"
+},
+    
+{
+  "type": "image_picker",
+  "id": "bg_image",
+  "label": "Background Image"
+},
+ {
+  "type": "image_picker",
+  "id": "side_image",
+  "label": "image"
+}
+
+  ],
+
+  "blocks": [
+     {
+       "name": "Description Box",
+       "type": "text",
+       "limit":5,
+       "settings": [
+
+           {
+  "type": "text",
+  "id": "box-heading",
+  "label": "Box Heading"
+},
+    {
+  "type": "text",
+  "id": "box-text",
+  "label": "Box Text"
+}
+
+       ]
+     },
+
+    
+    {
+       "name": "Images With Text",
+       "type": "image",
+      "limit":5,
+       "settings": [
+
+         
+         {
+  "type": "image_picker",
+  "id": "second_image_box",
+  "label": "image"
+},
+
+           {
+  "type": "text",
+  "id": "second-box-heading",
+  "label": "second Box Heading"
+},
+    {
+  "type": "text",
+  "id": "second-box-text",
+  "label": "second Box Text"
+}
+       ]
+     },
+    {
+       "name": "Background With Text",
+       "type": "bgtext",
+      "limit":3,
+       "settings": [
+         {
+           "type":"text",
+           "id":"bg_heading",
+           "label":"ADD Heading"
+         },
+         {
+           "type":"text",
+           "id":"bg_para",
+           "label":"ADD Text"
+         },
+         {
+  "type": "color",
+  "id": "bg_color_botom_sec",
+  "label": "ADD Card Color",
+  "default": "#D9D9D9"
+}
+
+       ]
+     }
+  ],
+
+    "presets": [
+  {
+    "name": "improve Section"
+  }
+]
+}
+{% endschema %}

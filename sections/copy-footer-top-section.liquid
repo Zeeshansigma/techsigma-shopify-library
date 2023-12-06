@@ -1,0 +1,193 @@
+{{ "footer-top.css" | asset_url | stylesheet_tag }}
+<section class="footer-top-section">
+  <div class="row">
+    <div class="footer-top-left col-md-6 col-sm-12">
+      <div class="footer-lt-wrap">
+        <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+      <div class="swiper-slide">
+         <div class="footer-top-inner-left">
+           <img src="{{ block.settings.star_img | img_url:"master" }}">
+      <p>{{ block.settings.footer_description }}</p>
+      <div class="test-per-row row align-items-center">
+        <div class="test-per-img col-md-3">
+          <img src="{{ block.settings.user_footer_img | img_url:"master" }}" alt="">
+        </div>
+        <div class="test-per-info col-md-9">
+          <h3 class="text-white"> {{ block.settings.footer_username }} </h3>
+          <p>{{ block.settings.footer_designation }}</p>
+        </div>
+      </div>
+    </div>
+      </div>
+      {% endfor %}
+    </div>
+   <div class="swiper-pagination top-footer-pagination"></div>
+  </div>
+    </div> 
+      <!-- rc-row -->
+    </div>
+    <div class="footer-top-right col-md-6 col-sm-12">
+      <div class="footer-tr-wrap">
+        <h2 class="title">{{ section.settings.top_right_heading }}</h2>
+        <p>{{ section.settings.top_right_description }}</p>
+        <ul class="benefit-main">
+          <li>{{ section.settings.benefit_1 }}</li>
+          <li>{{ section.settings.benefit_2 }}</li>
+          <li>{{ section.settings.benefit_3 }}</li>
+        </ul>
+        <div class="klaviyo-form-YpGh9d">
+          {% form 'customer', class: 'newsletter-form custom-form' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div
+              class="newsletter-form__field-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              <div class="field">
+                <input
+                  id="NewsletterForm--{{ section.id }}"
+                  type="email"
+                  name="contact[email]"
+                  class="field__input"
+                  value="{{ form.email }}"
+                  aria-required="true"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  {% if form.errors %}
+                    autofocus
+                    aria-invalid="true"
+                    aria-describedby="Newsletter-error--{{ section.id }}"
+                  {% elsif form.posted_successfully? %}
+                    aria-describedby="Newsletter-success--{{ section.id }}"
+                  {% endif %}
+                  placeholder="{{ 'newsletter.label' | t }}"
+                  required
+                >
+                <label class="field__label" for="NewsletterForm--{{ section.id }}">
+                 <p class="placeholder-text">Enter your email</p>
+                </label>
+              </div>
+              {%- if form.errors -%}
+                <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+                  {%- render 'icon-error' -%}
+                  {{- form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email -}}
+                </small>
+              {%- endif -%}
+               <button
+                  type="submit"
+                  class="newsletter-form__button field__button custom-form-btn"
+                  name="commit"
+                  id="Subscribe"
+                  aria-label="{{ 'newsletter.button_label' | t }}"
+                >
+                  Subscribe
+                  <!-- {% render 'icon-arrow' %} -->
+                </button>
+            </div>
+            {%- if form.posted_successfully? -%}
+              <h3
+                class="newsletter-form__message newsletter-form__message--success form__message"
+                id="Newsletter-success--{{ section.id }}"
+                tabindex="-1"
+                autofocus
+              >
+                {% render 'icon-success' -%}
+                {{- 'newsletter.success' | t }}
+              </h3>
+            {%- endif -%}
+          {% endform %}
+        </div>
+                
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+       slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+      autoplay: {
+        delay: 2000,
+      },
+      direction: "horizontal",
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>
+{% schema %}
+{
+  "name": "footer Top Section",
+  "settings": [
+    {
+      "type":"text",
+      "id":"top_right_heading",
+      "label":"ADD Heading"
+    },
+    {
+      "type":"text",
+      "id":"top_right_description",
+      "label":"ADD Description"
+    },
+    {
+      "type":"text",
+      "id":"benefit_1",
+      "label":"ADD Benefit 1"
+    },
+    {
+      "type":"text",
+      "id":"benefit_2",
+      "label":"ADD Benefit 2"
+    },
+    {
+      "type":"text",
+      "id":"benefit_3",
+      "label":"ADD Benefit 3"
+    }
+  ],
+   "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "star_img",
+           "label": "ADD Star Image"
+         },
+         {
+           "type": "text",
+           "id": "footer_description",
+           "label": "ADD Description"
+         },{
+           "type": "image_picker",
+           "id": "user_footer_img",
+           "label": "ADD User Image"
+         },{
+           "type": "text",
+           "id": "footer_username",
+           "label": "ADD User Name"
+         },{
+           "type": "text",
+           "id": "footer_designation",
+           "label": "ADD Designation"
+         }
+       ]
+     }
+  ],
+    "presets": [
+  {
+    "name": "footer Top Section"
+  }
+]
+}
+{% endschema %}

@@ -1,0 +1,32 @@
+<section class="pro-tab-section">
+  
+  <div class="pro-tab-info-a page-width">
+    <h2 class="title">{{ section.settings.video_heading }}</h2>
+    <p>{{ section.settings.video_description }}</p>
+  </div>
+  
+</section>
+
+{% schema %}
+{
+  "name": "Product Tab Slider",
+  "settings": [
+       {
+      "type": "text",
+      "id":"video_heading",
+      "label":"ADD Heading"
+         },
+    {
+      "type": "text",
+      "id":"video_description",
+      "label":"VIDEO Description"
+         }
+  ],
+  "presets": [
+    {
+      "name": "Product Tab Slider"
+
+    }
+  ]
+}
+{% endschema %}

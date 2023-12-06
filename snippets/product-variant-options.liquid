@@ -1,0 +1,211 @@
+{% comment %}
+Renders product variant options
+
+Accepts:
+- product: {Object} product object.
+- option: {Object} current product_option object.
+- block: {Object} block object.
+
+
+Usage:
+{% render 'product-variant-options',
+product: product,
+option: option,
+block: block
+%}
+{% endcomment %}
+
+{% comment %} {% if product.variants.size > 0 %}
+<script>
+// Initialize an empty array to store variant metafields
+const variantMetafields_regular = [];
+
+// Loop through the product variants
+{% for variant in product.variants %}
+
+// Check if the variant has metafields
+{% if variant.metafields %}
+
+// Create a JavaScript object for the variant metafields
+var metafields_regular = {
+variantId_regular: {{ variant.id }},
+metafields: {{ variant.metafields.custom | json }}
+};
+
+// current currency symbol
+var curr_symbol = "{{localization.country.currency.symbol}}"
+
+// Push the JavaScript object into the array
+variantMetafields_regular.push(metafields_regular);{% endif %}{% endfor %}function mapVariantMetafields_regular(inputArray_regular) {
+return inputArray_regular.map((variant) => {
+
+return {
+id: variant.variantId_regular,
+dd: variant.metafields.date,
+mm: variant.metafields.month,
+yy: variant.metafields.year_yyyy,
+variant_compatibility: variant.metafields.variant_compatibility,
+color: variant.metafields.color,
+material: variant.metafields.material,
+numberOfPorts: variant.metafields.number_of_ports,
+hardWare: variant.metafields.hardware_interfaces,
+dimensions: variant.metafields.item_dimensions_lxwxh_,
+itemWeight: variant.metafields.item_weight
+};
+});
+}
+
+// Example input array
+const inputArray_regular = variantMetafields_regular;
+
+// Call the function to map the input array
+const mappedArrayOfMetaFields_regular = mapVariantMetafields_regular(inputArray_regular);
+console.log(mappedArrayOfMetaFields_regular);
+</script>
+{% endif %} {% endcomment %}<script>
+
+// document.addEventListener("DOMContentLoaded", function() {
+//    updatedVariantId();
+// });
+
+// function updatedVariantId() {
+// const get_input_values = document.querySelectorAll(".variant_radios_regular fieldset input");
+//    const get_radio_parent = document.querySelector("variant-radios"); // Note the period before 'variant-radios'
+
+// const intervalId = setInterval(function() {
+//     let on_changeVariant_id = get_radio_parent.getAttribute("data-current_id");
+// console.log("Updated data-current_id:", on_changeVariant_id);
+
+// If you have an array of metafields and want to find the corresponding one:
+// const foundObject = mappedArrayOfMetaFields_regular.find(obj => obj.id === parseInt(on_changeVariant_id, 10));
+// if (foundObject) {
+// console.log("Metafield found:", foundObject);
+// hangeProductdetails(foundObject)
+
+
+//    } else {
+//    console.log("No matching metafield found for variant ID:", on_changeVariant_id);
+// }
+// }, 500); // Interval set to 1000 milliseconds (1 second
+// }function changeProductdetails(matched_object_for_metafields) {
+// document.getElementById("color").textContent = matched_object_for_metafields.color;
+// document.getElementById("material").textContent = matched_object_for_metafields.material;
+// document.getElementById("ports").textContent = matched_object_for_metafields.numberOfPorts;
+// document.getElementById("hardware").textContent = matched_object_for_metafields.hardWare;
+// document.getElementById("weight").textContent = matched_object_for_metafields.itemWeight;
+// document.getElementById("dimensions").textContent = matched_object_for_metafields.dimensions;
+
+
+// document.getElementById("compatiblity").textContent = matched_object_for_metafields.variant_compatibility;
+// }
+</script>
+
+
+<style>
+.product-form__input input[type=radio]:checked + label {
+  background: #6219FA;
+  border: 1px solid var(--electronic-indigo, #6219FA);
+  border-color: var(--electronic-indigo, #6219FA);
+}
+.product-form__input input[type=radio]:checked + label:first-of-type {
+  border-radius: 10px 0 0 10px;
+}
+.product-form__input input[type=radio]:checked + label:last-of-type {
+  border-radius: 0 10px 10px 0;
+}
+.product-form__input input[type=radio] + label:first-of-type {
+  border-radius: 10px 0 0 10px;
+}
+.product-form__input input[type=radio] + label:last-of-type {
+  border-radius: 0 10px 10px 0;
+}
+
+@media screen and (max-width: 991px) {
+  .product-form__input input[type=radio] + label:first-of-type {
+    width: 50%;
+  }
+  .product-form__input input[type=radio] + label:last-of-type {
+    width: 48%;
+  }
+}
+</style><!-- {% for variant in product.variants %}
+  {{ variant.metafields.custom.mac_processor }}
+  {% endfor %} -->{%- liquid
+  assign variants_available_arr = product.variants | map: 'available'
+  
+  assign variants_option1_arr = product.variants | map: 'option1'
+  assign variants_option2_arr = product.variants | map: 'option2'
+  assign variants_option3_arr = product.variants | map: 'option3'
+
+  assign product_form_id = 'product-form-' | append: section.id
+-%}
+
+
+{%- for value in option.values -%}
+{%- liquid
+    assign option_disabled = true
+
+    for option1_name in variants_option1_arr
+      case option.position
+        when 1      
+          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+            assign option_disabled = false
+          endif
+        when 2
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+            assign option_disabled = false
+          endif
+        when 3
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+            assign option_disabled = false
+          endif
+      endcase
+    endfor
+  -%}
+
+  {%- if block.settings.picker_type == 'button' -%}
+  {% comment %} <div class="middle_swatches">
+  <div class="swatches_model">
+  <div class="bundle_heading up">MacBook Model</div>
+  <div class="product_bundle">
+  <div
+  class="swatch_m"
+  id="swatch1"
+  >
+
+  </div>
+  <div
+  class="swatch_m"
+  id="swatch2"
+  >Air</div>
+  </div>
+  </div>
+  </div> {% endcomment %}<input
+    type="radio"
+    id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+    name="{{ option.name }}"
+    value="{{ value | escape }}"
+    form="{{ product_form_id }}"
+    {% if option.selected_value == value %}
+    checked
+    {% endif %}
+    {% if option_disabled %}
+    class="disabled"
+    {% endif %}> <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="regular-variant abc">
+    {{ value -}}
+    <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+  </label>
+
+{%- elsif block.settings.picker_type == 'dropdown' -%}
+  <option
+    value="{{ value | escape }}"
+    {% if option.selected_value == value %}
+    selected="selected"
+    {% endif %}>
+    {% if option_disabled -%}
+      {{- 'products.product.value_unavailable' | t: option_value: value -}}
+    {%- else -%}
+      {{- value -}}
+    {%- endif %}
+  </option>
+{%- endif -%}{%- endfor -%}

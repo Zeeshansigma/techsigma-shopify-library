@@ -1,0 +1,1581 @@
+{% comment %}
+Renders product variant-picker
+
+Accepts:
+- product: {Object} product object.
+- block: {Object} passing the block information.
+- product_form_id: {String} Id of the product form to which the variant picker is associated.
+- update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+Usage:
+{% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+
+{% comment %} {% for media_item in product.media %}
+{% if media_item.media_type == 'video' %}
+<script type="text/javascript">
+var mediaItemJson = {{ media_item | json }};
+console.log("media=>",mediaItemJson);
+</script>
+{% endif %}
+{% endfor %} {% endcomment %}{% if product.variants.size > 0 %}
+    <script>
+// Initialize an empty array to store variant metafields
+const variantMetafields = [];
+
+// Loop through the product variants
+{% for variant in product.variants %}
+
+// Check if the variant has metafields
+  {% if variant.metafields %}
+
+// Create a JavaScript object for the variant metafields
+    var metafields = {
+      variantId: {{ variant.id }},
+      metafields: {{ variant.metafields.custom | json }}
+    };
+
+// current currency symbol
+    var curr_symbol = "{{localization.country.currency.symbol}}"
+
+// Push the JavaScript object into the array
+    variantMetafields.push(metafields);{% endif %}{% endfor %}function mapVariantMetafields(inputArray) {
+  return inputArray.map((variant) => {
+
+    return {
+      id: variant.variantId,
+      dockType: variant.metafields.mac_monitor,
+      years: variant.metafields.mac_year.join(', '),
+      model: variant.metafields.mac_model.join(', '),
+      sizes: variant.metafields.mac_size.join(', '),
+      processor: variant.metafields.mac_processor,
+      dd: variant.metafields.date,
+      mm: variant.metafields.month,
+      yy: variant.metafields.year_yyyy,
+      portType: variant.metafields.port_type,
+      variant_compatibility: variant.metafields.variant_compatibility,
+      pre_order: variant.metafields.preorder,
+      color: variant.metafields.color,
+      material: variant.metafields.material,
+      numberOfPorts: variant.metafields.number_of_ports,
+      hardWare: variant.metafields.hardware_interfaces,
+      dimensions: variant.metafields.item_dimensions_lxwxh_,
+      itemWeight: variant.metafields.item_weight,
+      warringText: variant.metafields.warning_text
+    };
+  });
+}
+
+// Example input array
+const inputArray = variantMetafields;
+
+// Call the function to map the input array
+const mappedArrayOfMetaFields = mapVariantMetafields(inputArray);
+</script>
+{% endif %}
+  <style>
+.swatches_model {
+  width: 25%;
+}
+.swatches_size {
+  width: 75%;
+  /* padding-left:32px; */
+}
+.middle_swatches {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: auto;
+}
+.product_bundle {
+  display: flex;
+  margin: 0;
+  /* border: 0.3px solid #f3eeee; */
+  border-radius: 10px;
+}
+.product__tax p {
+  margin-bottom: 0;
+}
+.swatch,
+.swatch_b,
+.swatch_m,
+.swatch_s,
+.swatch_y,
+.swatch_pr {
+  /* width: 100%; */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  padding: 10px 16px;
+  border: 0.3px solid #f3eeee;
+  border-right: 0.3px solid #f3eeee;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+.swatch_pr {
+  font-size: 14px;
+  padding: 6.5px 16px;
+}
+.swatch:last-child,
+.swatch_b:last-child,
+.swatch_m:last-child,
+.swatch_s:last-child,
+.swatch_y:last-child,
+.swatch_pr:last-child {
+  /* border-right: none; /* Remove border from the last swatch */ */
+}
+.swatch_b.active,
+.swatch_m.active,
+.swatch_s.active,
+.swatch_y.active,
+.swatch_pr.active {
+  border: 1px solid var(--electronic-indigo, #6219FA);
+  background: #6219FA !important;
+  color: #fff;
+}
+
+
+.swatch_b:nth-child(1),
+.swatch_m:nth-child(1),
+.swatch_s:nth-child(1),
+.swatch_y:nth-child(1),
+.swatch_pr:nth-child(1) {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.swatch_b.active:nth-child(1),
+.swatch_m.active:nth-child(1),
+.swatch_s.active:nth-child(1),
+.swatch_y.active:nth-child(1),
+.swatch_pr.active:nth-child(1) {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.swatch_b:last-child,
+.swatch_m:last-child,
+.swatch_s:last-child,
+.swatch_y:last-child,
+.swatch_pr:last-child {
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+/* .swatch_b.active:nth-child(1), .swatch_m.active:nth-child(1), .swatch_s.active:nth-child(1), .swatch_y.active:nth-child(1) {
+  border-top-left-radius:10px;
+  border-bottom-left-radius:10px;
+} */
+.swatch_b.active:nth-child(4),
+.swatch_m.active:nth-child(2),
+.swatch_s.active:nth-child(4),
+.swatch_y.active:nth-child(4),
+.swatch_pr.active:nth-child(2) {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.bundle_heading {
+  display: flex;
+  max-width: 53%;
+  justify-content: space-between;
+}
+.bundle_heading.up {
+  max-width: 100%;
+}
+@media screen and (max-width:768px) {
+  .bundle_heading {
+    max-width: 100%;
+  }
+  .swatch_y {
+    width: 100%;
+  }
+}
+.bundle_heading p:nth-child(2) {
+  margin-left: 13%;
+}
+.how-to {
+  font-family: Montserrat;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 10px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #6219FA;
+  position: relative;
+  border: none;
+  background: transparent;
+}
+@media screen and (max-width: 600px) {
+  .swatches_size,
+  .swatches_model {
+    width: 100%;
+    /**padding-bottom: 12px;*/
+  }
+  .middle_swatches {
+    flex-flow: row wrap;
+  }
+  .swatches_size {
+    padding-left: 0;
+  }
+  .swatch,
+  .swatch_b,
+  .swatch_m,
+  .swatch_s,
+  .swatch_y,
+  .swatch_pr {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .how-to span {
+    display: none;
+  }
+}
+@media screen and (max-width: 400px) {
+
+  .swatch,
+  .swatch_b,
+  .swatch_m,
+  .swatch_s,
+  .swatch_y,
+  .swatch_pr {
+    font-size: 12px;
+    padding: 10px 8px;
+    min-width: 60px;
+    margin-bottom: 12px;
+  }
+}
+@media screen and (max-width: 359px) {
+
+  .swatch,
+  .swatch_b,
+  .swatch_m,
+  .swatch_s,
+  .swatch_y,
+  .swatch_pr {
+    padding: 10px 8px;
+    font-size: 10px;
+    line-height: normal;
+  }
+}
+
+
+@media screen and (min-width: 800px) {
+  .choose-text {
+    display: none;
+  }
+}
+.choose-text h2 {
+  color: var(--Black, #1F1F1F);
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  letter-spacing: -0.48px;
+  margin-bottom: 12px;
+}
+.choose-text p {
+  color: var(--Black, #1F1F1F);
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  margin-bottom: 16px;
+}
+{% if template.suffix == 'regular-product' %}{% endif %}
+}
+</style>
+{% assign bundle_link = section.settings.bundel_link %}
+  {% if template.suffix != 'regular-product' %}
+    {% if product.metafields.stock.preorder.value %}
+  {% assign prval = product.metafields.stock.preorder.value %}
+  {% endif %}
+
+  {% render 'count-down-timer' %}
+
+
+    <div class="choose-text"> <h2>Choose MacBook Model</h2>
+    <p>To connect HDMI, USB-A or Ethernet combine your Docking Station with an adapter.</p>
+  </div>
+  <div class="middle_swatches">
+    <div class="swatches_model">
+      <div class="bundle_heading up">MacBook Model</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_m"
+          id="swatch1"
+          onClick="onSelectModel('Pro')">Pro</div>
+        <div
+          class="swatch_m"
+          id="swatch2"
+          onClick="onSelectModel('Air')">Air</div>
+      </div>
+    </div>
+
+    <div class="swatches_size">
+      <div class="bundle_heading">MacBook Size</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_s"
+          id="swatch1"
+          onClick="onSelectSize('13')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">13”</div>
+        <div
+          class="swatch_s"
+          id="swatch2"
+          onClick="onSelectSize('14')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">14”</div>
+        <div
+          class="swatch_s"
+          id="swatch2"
+          onClick="onSelectSize('15')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">15”</div>
+        <div
+          class="swatch_s"
+          id="swatch2"
+          onClick="onSelectSize('16')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">16”</div>
+      </div>
+    </div>
+  </div>
+  <div class="swatches_year">
+    <div class="bundle_heading">
+      <p>
+        MacBook Year Release</p>
+      <button onclick="showPopup()" class="how-to">
+        <span>How to?</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none">
+          <g clip-path="url(#clip0_139_2160)">
+            <path d="M6 8V6V8ZM6 4H6.005H6ZM11 6C11 8.7614 8.7614 11 6 11C3.23857 11 1 8.7614 1 6C1 3.23857 3.23857 1 6 1C8.7614 1 11 3.23857 11 6Z" fill="#6219FA" />
+            <path
+              d="M6 8V6M6 4H6.005M11 6C11 8.7614 8.7614 11 6 11C3.23857 11 1 8.7614 1 6C1 3.23857 3.23857 1 6 1C8.7614 1 11 3.23857 11 6Z"
+              stroke="#FEFEFE"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </g>
+          <rect
+            x="0.5"
+            y="0.5"
+            width="11"
+            height="11"
+            rx="5.5"
+            stroke="#6219FA" />
+          <defs>
+            <clipPath id="clip0_139_2160">
+              <rect
+                width="12"
+                height="12"
+                rx="6"
+                fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </button>
+    </div>
+    <div class="product_bundle">
+      <div
+        class="swatch_y"
+        id="swatch1"
+        onClick="onSelectYear('2016-2020')"
+        disabled="true"
+        style="background-color: rgba(0, 0, 0, 0.03);">2016-2020</div>
+
+      <div
+        class="swatch_y"
+        id="swatch2"
+        onClick="onSelectYear('2021')"
+        disabled="true"
+        style="background-color: rgba(0, 0, 0, 0.03);">2021</div>
+      <div
+        class="swatch_y"
+        id="swatch2"
+        onClick="onSelectYear('2022')"
+        disabled="true"
+        style="background-color: rgba(0, 0, 0, 0.03);">2022</div>
+      <div
+        class="swatch_y"
+        id="swatch2"
+        onClick="onSelectYear('2023')"
+        disabled="true"
+        style="background-color: rgba(0, 0, 0, 0.03);">2023</div>
+    </div>
+
+
+
+    <div class="swatches_bundle">
+      <div class="bundle_heading">Processor Type</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_pr"
+          id="swatch_pr_m1"
+          onClick="onSelectProcessor('M1 / M2')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">M1 / M2</div>
+        <div
+          class="swatch_pr"
+          id="swatchm_pr_intel"
+          onClick="onSelectProcessor('Intel')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">Intel</div>
+      </div>
+    </div>
+    <div class="swatches_bundle">
+      <div class="bundle_heading">Product Bundle</div>
+      <div class="product_bundle">
+        <div
+          class="swatch_b"
+          id="swatch1"
+          onClick="onSelectBundle('Single Dock')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">Single Dock</div>
+        <div
+          class="swatch_b"
+          id="swatch2"
+          onClick="onSelectBundle('1x Monitor')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">1x Monitor</div>
+        <div
+          class="swatch_b"
+          id="swatch3"
+          onClick="onSelectBundle('2x Monitor')"
+          disabled="true"
+          style="background-color: rgba(0, 0, 0, 0.03);">2x Monitor</div>
+        <!-- <div class="swatch_b" id="swatch4">2x Monitor M1/M2</div> -->
+      </div>
+    </div>
+
+
+  </div>
+{% endif %}
+{% for variant in product.variants %}
+  {% assign mac_processor = variant.metafields.custom.mac_processor %}
+{% endfor %}
+
+{%- unless product.has_only_default_variant -%}
+  {% if template.suffix == 'regular-product' %}
+    {%- if block.settings.picker_type == 'button' -%}
+      <variant-radios
+        id="variant-radios-{{ section.id }}"
+        class="variant_radios_regular"
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        {% if update_url == false %}data-update-url="false"{% endif %}{{ block.shopify_attributes }}>
+        {%- for option in product.options_with_values -%}
+          <fieldset class="js product-form__input">
+            <legend class="form__label">{{ option.name }}</legend>
+            {% render 'product-variant-options', product: product, option: option, block: block %}
+          </fieldset>
+        {%- endfor -%}
+        <script type="application/json">
+          {{ product.variants | json }}
+        </script>
+      </variant-radios>
+    {%- else -%}
+      <variant-selects
+        id="variant-selects-{{ section.id }}"
+        class="no-js-hidden "
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        {% if update_url == false %}data-update-url="false"{% endif %}{{ block.shopify_attributes }}>
+        {%- for option in product.options_with_values -%}
+          <div class="product-form__input product-form__input--dropdown">
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+            <div class="select">
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}">
+                {% render 'product-variant-options', product: product, option: option, block: block %}
+              </select>
+              {% render 'icon-caret' %}
+            </div>
+          </div>
+        {%- endfor -%}
+      {% endif %}
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-selects>
+  {%- endif -%}
+{%- endunless -%}
+{% if template.suffix == 'main-product' %}
+  <div class="swatches_size swatches_size ">
+    <div class="bundle_heading">Processor Type</div>
+    <div class="product_bundle">
+      <div class="swatch_m swatch_s active" id="swatchm1">M1 / M2</div>
+      <div class="swatch_m swatch_s" id="swatchm2">intel</div>
+    </div>
+  </div>
+{% endif %}
+<noscript class="product-form__noscript-wrapper-{{ section.id }}">
+  <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+    <label class="form__label" for="Variants-{{ section.id }}">
+      {{- 'products.product.product_variants' | t -}}
+    </label>
+    <div class="select">
+      <select
+        name="id"
+        id="Variants-{{ section.id }}"
+        class="select__select"
+        form="{{ product_form_id }}">
+        {%- for variant in product.variants -%}
+          <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}{% if variant.available == false %}disabled{% endif %} value="{{ variant.id }}">
+            {%- liquid
+              echo variant.title
+              echo variant.price | money | strip_html | prepend: ' - '
+              if variant.available == false
+                echo 'products.product.sold_out' | t | prepend: ' - '
+              endif
+              if variant.quantity_rule.increment > 1
+                echo 'products.product.quantity.multiples_of' | t: quantity: variant.quantity_rule.increment | prepend: ' - '
+              endif
+              if variant.quantity_rule.min > 1
+                echo 'products.product.quantity.minimum_of' | t: quantity: variant.quantity_rule.min | prepend: ' - '
+              endif
+              if variant.quantity_rule.max != null
+                echo 'products.product.quantity.maximum_of' | t: quantity: variant.quantity_rule.max | prepend: ' - '
+              endif
+              # TODO: enable theme-check once `item_count_for_variant` is accepted as valid filter
+              # theme-check-disable
+              assign cart_quantity = cart | item_count_for_variant: variant.id
+              # theme-check-enable
+              if cart_quantity > 0
+                echo 'products.product.quantity.in_cart_html' | t: quantity: cart_quantity | prepend: ' - '
+              endif
+            -%}
+          </option>
+        {%- endfor -%}
+      </select>
+      {% render 'icon-caret' %}
+    </div>
+  </div>
+</noscript>
+
+<script>
+  const swatches = {
+    dockType: document.querySelectorAll('.swatch_b'),
+    model: document.querySelectorAll('.swatch_m'),
+    sizes: document.querySelectorAll('.swatch_s'),
+    years: document.querySelectorAll('.swatch_y'),
+    processor: document.querySelectorAll('.swatch_pr')
+  };
+
+  const activeSwatch = {
+    dockType: null,
+    model: null,
+    sizes: null,
+    years: null,
+    processor: null
+  };
+
+  let filteredItems = [... mappedArrayOfMetaFields];
+
+  let master_object = {};
+
+
+// Initialize master_object as an empty object
+  const selected_Swatches = {
+    years: "",
+    model: "",
+    sizes: "",
+    processor: "",
+    dockType: ""
+  };
+
+  const year16to2020 = [
+    '2016',
+    '2017',
+    '2018',
+    '2019',
+    '2020'
+  ];
+
+  var countdownInterval = null; // Initialize countdownInterval to null
+  var ddd = ""; // Empty string
+  var mmm = ""; // Empty string
+  var yyy = ""; // Empty string
+  var preOrderCount = false; // Default value
+
+  const day = 1000 * 60 * 60 * 24;
+  const hour = 1000 * 60 * 60;
+  const minute = 1000 * 60;
+  const second = 1000;
+
+  function startTimer(finalArray) {
+    const count_down_desktop = document.querySelector(".countdown_display");
+    const count_down_mobile = document.querySelector("#mobile-count-down");
+    const count_down_mobile_inner = count_down_mobile.querySelector(".countdown_display");
+
+    let currentDdd = finalArray.dd;
+    let currentMmm = finalArray.mm;
+    let currentYyy = finalArray.yy;
+    let currentPreOrderCount = finalArray.pre_order;
+
+// Check if there's a change in any of the values
+    if (currentDdd !== ddd || currentMmm !== mmm || currentYyy !== yyy || currentPreOrderCount !== preOrderCount) {
+      ddd = currentDdd;
+      mmm = currentMmm;
+      yyy = currentYyy;
+      preOrderCount = currentPreOrderCount;
+
+// Clear any previous interval
+      clearInterval(countdownInterval);
+
+
+// Initialize the countdown with the updated values
+      const dayMonth = mmm + "/" + ddd + "/";
+      const birthday = dayMonth + yyy;
+      const countDown = new Date(birthday).getTime();
+
+// Update the display based on the new preOrderCount value
+      if (preOrderCount) {
+        count_down_desktop.style.display = 'block';
+      } else {
+        count_down_desktop.style.display = 'none';
+      }
+      if (window.outerWidth <= 786) {
+        if (preOrderCount) {
+          count_down_mobile.style.display = 'block';
+          count_down_mobile_inner.style.display = 'block';
+          count_down_desktop.style.display = 'none';
+
+        } else {
+          count_down_mobile.style.display = 'none';
+          count_down_mobile_inner.style.display = 'none';
+          count_down_desktop.style.display = 'none';
+        }
+      }
+
+// Update the countdown display immediately
+      updateCountdownDisplay(countDown);
+
+// Set a new interval to update the countdown
+      countdownInterval = setInterval(function() {
+        updateCountdownDisplay(countDown);
+      }, 1000);
+    }
+
+// Rest of your code...
+
+    function updateCountdownDisplay(countDown) {
+      const now = new Date().getTime();
+      const distance = countDown - now;
+
+      const counter_days = document.querySelectorAll("#days");
+      const counter_hours = document.querySelectorAll("#hours");
+      const counter_minutes = document.querySelectorAll("#minutes");
+      const counter_seconds = document.querySelectorAll("#seconds");
+
+      const caculated_days = Math.floor(distance / (day));
+
+
+
+      const caculated_hours = Math.floor((distance % (day)) / (hour));
+
+
+      const caculated_minutes = Math.floor((distance % (hour)) / (minute));
+
+
+      const caculated_seconds = Math.floor((distance % (minute)) / second);
+
+
+
+      for (let d = 0; d < counter_days.length; d++) {
+        counter_days[d].textContent = caculated_days;
+      }
+
+      for (let h = 0; h < counter_hours.length; h++) {
+        counter_hours[h].textContent = caculated_hours;
+      }
+
+      for (let m = 0; m < counter_minutes.length; m++) {
+        counter_minutes[m].textContent = caculated_minutes;
+      }
+
+      for (let s = 0; s < counter_seconds.length; s++) {
+        counter_seconds[s].textContent = caculated_seconds;
+      }
+
+      {% comment %}
+        document.getElementById("days").innerText = Math.floor(distance / (day));
+        document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour));
+        document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute));
+        document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);{% endcomment %}
+  }
+}
+
+// For Compatiblity
+
+function product_compatiblity(compatiblity_array) {
+  const varisntComp = compatiblity_array.variant_compatibility;
+  const compatiblity_element = document.querySelector("#compatiblity");
+  compatiblity_element.textContent = '';
+  compatiblity_element.textContent = varisntComp;
+}
+
+// for specifications
+function product_item_specifications(specification_data) {
+  const variant_dimension = specification_data.dimensions;
+  const pr_dimension = document.querySelector("#dimensions");
+  pr_dimension.textContent = '';
+  pr_dimension.textContent = variant_dimension;
+
+  const variant_itemWeight = specification_data.itemWeight;
+  const pr_weight = document.querySelector("#weight");
+  pr_weight.textContent = '';
+  pr_weight.textContent = variant_itemWeight;
+
+
+  const variant_hardWare = specification_data.hardWare;
+  const pr_hardware = document.querySelector("#hardware");
+  pr_hardware.textContent = '';
+  pr_hardware.textContent = variant_hardWare;
+
+  const variant_numberOfPorts = specification_data.numberOfPorts;
+  const pr_ports = document.querySelector("#ports");
+  pr_ports.textContent = '';
+  pr_ports.textContent = variant_numberOfPorts;
+
+  const variant_material = specification_data.material;
+  const pr_material = document.querySelector("#material");
+  pr_material.textContent = '';
+  pr_material.textContent = variant_material;
+
+  const variant_color = specification_data.color;
+  const pr_color = document.querySelector("#color");
+  pr_color.textContent = '';
+  pr_color.textContent = variant_color;
+}
+
+// preorder text shown
+var PreOrderSet = false;
+function CheckPreOrder(preOrderCheckArray) {
+
+  var preOrderChecker = preOrderCheckArray.pre_order;
+  var preText = document.querySelector(".preorder_text");
+  PreOrderSet = preOrderChecker;
+  if (PreOrderSet) {
+    preText.style.display = 'flex';
+  } else {
+    preText.style.display = 'none';
+  }
+
+}
+
+var alertText = false;
+function updateAlertText(forAlertText) {
+  var alertTextFromArray = forAlertText.warringText;
+  var getAlertElement = document.querySelector(".alert-text .warn_text");
+  var alertIcon = document.querySelector(".alert_icon");
+  alertText = forAlertText.warringText;
+
+  if (alertText && selected_Swatches.dockType.length > 0) {
+    getAlertElement.style.display = 'block';
+    alertIcon.style.display = 'block';
+
+  } else {
+    getAlertElement.style.display = 'none';
+    alertIcon.style.display = 'none';
+
+  }
+
+  if (forAlertText.pre_order) {
+    document.getElementById("out-of-stock-text").style.display = 'flex'
+    document.getElementById("in-stock-text").style.display = 'none'
+    document.getElementById("preorder-display1").style.display = 'block'
+
+// for mobile
+    document.getElementById("mobile-count-down").style.display = 'block'
+  } else {
+    document.getElementById("out-of-stock-text").style.display = 'none'
+    document.getElementById("in-stock-text").style.display = 'flex'
+
+// for mobile
+    {% comment %}
+      document.getElementById("mobile-count-down").style.display = 'none' {% endcomment %}
+  }
+} function updateTextShow() {
+  var updte_text_type = document.querySelector(".product__doc_txt h3");
+  var updte_text_variant = document.querySelector(".product__doc_txt p");
+  var initial_text = document.querySelector(".initial_text");
+  updte_text_type.style.display = 'block';
+  updte_text_variant.style.display = 'block';
+  initial_text.style.display = 'none';
+  document.querySelector(".product__doc_img ").style.display = 'block'
+}
+
+function ShowOnlyInitialtext() {
+  var updte_text_type_hide = document.querySelector(".product__doc_txt h3");
+  var updte_text_variant_hide = document.querySelector(".product__doc_txt p");
+  var initial_text_show = document.querySelector(".initial_text");
+  updte_text_type_hide.style.display = 'none';
+  updte_text_variant_hide.style.display = 'none';
+  initial_text_show.style.display = 'block';
+  document.getElementById("out-of-stock-text").style.display = 'none'
+  document.getElementById("in-stock-text").style.display = 'none'
+  document.getElementById("preorder-display1").style.display = 'none'
+  document.querySelector(".product__doc_img").style.display = 'none'
+  document.querySelector(".countdown_display").style.display = 'none'
+  document.querySelector(".alert-text .warn_text").style.display = 'none';
+  document.querySelector(".alert_icon").style.display = 'none';
+
+
+// for mobile
+  {% comment %}
+    document.getElementById("mobile-count-down").style.display = 'none' {% endcomment %}
+  }
+
+// For port type
+  function updateVariantPortType(portTypeMetafields) {
+    const var_string = portTypeMetafields.portType;
+    const type_change_text = document.querySelector(".product__doc_txt h3 .types");
+    type_change_text.textContent = '';
+    type_change_text.textContent = var_string;
+  }
+
+// variants all code
+  function variant_id(index_vairant) {
+    const shopifyDomain = 'ascrono.com';
+    const accessToken = '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';
+
+    const apiEndpoint = `https://${shopifyDomain}/products/{{product.handle}}.json`;
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'X-Shopify-Access-Token': accessToken
+    };
+
+    fetch(apiEndpoint, {
+      method: 'GET',
+      headers: headers
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to retrieve product data. Status code: ${
+          response.status
+        }`);
+      }
+      return response.json();
+    }).then((productData) => {
+
+      const current_variant = productData.product.variants.find(variant => variant.id === index_vairant);
+      const current_variant_meta_fields = mappedArrayOfMetaFields.find(item => item.id === index_vairant);
+
+// for change variant id to add to cart
+      var update_variant = current_variant.id;
+      var add_to_cart_value = document.querySelector(".new_add_btn");
+      var add_to_cart_value_sticky = document.querySelector(".new_add_btn_sticky_default");
+      add_to_cart_value.value = '';
+      add_to_cart_value.value = update_variant;
+      add_to_cart_value_sticky.value = '';
+      add_to_cart_value_sticky.value = update_variant;
+
+
+
+      specialUpdateVariantDetails();
+
+      function specialUpdateVariantDetails() {
+        const variants = document.querySelectorAll('.pre-btn');
+
+        for (let vr = 0; vr < variants.length; vr++) {
+          var my_variant_id = variants[vr].getAttribute('data-variant-id');
+          var my_variant_preOrder = variants[vr].getAttribute('data-variant-preorder');
+          if (my_variant_id == update_variant && my_variant_preOrder == 'true') {
+            variants[vr].style.display = "block";
+          } else {
+            variants[vr].style.display = "none";
+          }
+        }
+      }
+
+// for title
+      var variant_title = current_variant.title;
+      var product_var_custom_title = document.querySelector(".product__doc_txt p");
+      product_var_custom_title.textContent = '';
+      product_var_custom_title.textContent = variant_title;
+
+// const typeA = "type A";
+// const typeB = "type B";
+// const typeC = "type C";
+// const typeD = "type D";
+// const typeE = "type E";
+// const typeF = "type F";
+// if (var_string.toLowerCase().includes(typeA.toLowerCase())) {
+// type_change_text.textContent = '';
+// type_change_text.textContent = "Type A";
+// } else if (var_string.toLowerCase().includes(typeB.toLowerCase())) {
+// type_change_text.textContent = '';
+// type_change_text.textContent = "Type B";
+// } else if (var_string.toLowerCase().includes(typeC.toLowerCase())) {
+// type_change_text.textContent = '';
+// type_change_text.textContent = "Type C";
+// } else if (var_string.toLowerCase().includes(typeD.toLowerCase())) {
+// type_change_text.textContent = '';
+// type_change_text.textContent = "Type D";
+// } else if (var_string.toLowerCase().includes(typeE.toLowerCase())) {
+// type_change_text.textContent = '';
+// type_change_text.textContent = "Type E";
+// } else if (var_string.toLowerCase().includes(typeF.toLowerCase())) {
+// type_change_text.textContent = '';
+// type_change_text.textContent = "Type F";
+// }
+
+
+// for price
+      const product_regular_price = document.querySelectorAll(".price .price__container .price__sale .price-item--sale");
+      const product_compare_price = document.querySelectorAll(".price .price__container .price__sale s");
+      const stickyRegularPrice = document.querySelector(".product-price-ase");
+      const stickyComparePrice = document.querySelector(".compare-price-ese");
+      var inputText = document.querySelector(".specific_atc").value;
+      var textAfterCart = inputText.substring(inputText.indexOf("cart") + 7); // Extract text after "cart"
+      console.log("Original text: " + inputText, "texttextAfterCart: ", textAfterCart);
+
+      var product_variant_r_price = current_variant.price;
+      var sale_price = current_variant.compare_at_price;
+      for (let p = 0; p < product_regular_price.length; p++) {
+        let pr_price = product_regular_price[p];
+        pr_price.textContent = '';
+        pr_price.textContent = curr_symbol + product_variant_r_price;
+        stickyRegularPrice.textContent = '';
+        stickyRegularPrice.textContent = curr_symbol + product_variant_r_price;
+
+// trailing zero function
+
+        function updateText(newPrice) {
+          if (!isNaN(newPrice)) {
+            var updatedPriceText = newPrice.toFixed(2).replace(/[,.]/g, '.');
+            var updatedText = inputText.replace(textAfterCart, updatedPriceText); // Adjusted regular expression
+            document.querySelector(".specific_atc").value = 'Add To Cart' + ' ' + curr_symbol + updatedPriceText; // Update the input field
+          } else {}
+        }
+        updateText(parseFloat(product_variant_r_price.replace(",", ".")))
+      }
+
+      for (let s = 0; s < product_compare_price.length; s++) {
+        if (sale_price) {
+          let sl_price = product_compare_price[s];
+          sl_price.textContent = '';
+          sl_price.textContent = curr_symbol + sale_price;
+          stickyComparePrice.textContent = '';
+          stickyComparePrice.textContent = curr_symbol + sale_price;
+        } else {
+          let sl_price = product_compare_price[s];
+          sl_price.textContent = '';
+          stickyComparePrice.textContent = '';
+        }
+      }
+
+// for variant img
+
+
+      var variant_dy_img = productData.product.images;
+      var variant_img_st = document.querySelector(".product__doc_img img"); // Get the img element by class
+      var main_productImage = document.querySelector(".product__image-slider .flickity-slider .carousel-cell.is-selected img");
+      var thumb_images_all = document.querySelectorAll(".product__image-thumbnail .flickity-slider .carousel-cell img");
+      var thumb_images_all_parent = document.querySelectorAll(".product__image-thumbnail .flickity-slider .carousel-cell");
+      var thumb_images_active = document.querySelector(".product__image-thumbnail .flickity-slider .carousel-cell.is-selected.is-nav-selected img");
+
+      flkty.reloadCells();
+      flktyB.reloadCells();
+
+// Create an array to store matching images
+      var matchingImages = [];
+      var thumbMatchedImages = [];
+
+      const updated_option = current_variant.title;
+      const update_option_image_id = current_variant.image_id;
+
+
+// Hide all images in thumb_images_all
+      thumb_images_all.forEach(function(image) {
+        image.style.display = "none";
+      });
+
+      for (let g = 0; g < variant_dy_img.length; g++) {
+        if (variant_dy_img[g].id === update_option_image_id) {
+          matchingImages.push(variant_dy_img[g].src); // Add matching image source to the array
+        }
+      }
+
+
+
+// Initialize an empty array to store the objects
+      const elementsData = [];
+
+// Loop through the matchingImages to create objects
+      for (let i = 0; i < matchingImages.length; i++) {
+        const elementData = {
+          src: matchingImages[i],
+          transform: `${
+            i * 100
+          }%`, // Adjust the transform value as needed
+        };
+
+        if (i > 0) {
+          elementData.ariaHidden = true;
+        }
+
+        elementsData.push(elementData);
+      }
+
+// Now, elementsData contains an array of objects with dynamic attributes and values.
+
+      const container = document.createElement("div");
+      const all_main_divs = document.querySelectorAll(".carousel.product__image-slider .flickity-slider");
+      const all_thumb_divs = document.querySelectorAll(".carousel.product__image-thumbnail .flickity-slider");
+      const flickity_buttonsslider = document.querySelectorAll(".carousel.product__image-slider.flickity-enabled .flickity-button");
+
+// Loop through the elementsData array to create and append div elements
+      elementsData.forEach((data, index) => {
+        const divElement = document.createElement("div");
+        divElement.style.position = "absolute";
+        divElement.style.left = "0";
+        divElement.classList.add('carousel-cell');
+        divElement.style.transform = `translateX(${
+          index * 100
+        }%)`;
+
+        if (index === 0) {
+          divElement.classList.add("is-selected");
+        }
+
+        if (index !== 0) {
+          divElement.setAttribute("aria-hidden", true);
+        }
+
+        const imgElement = document.createElement("img");
+        imgElement.setAttribute("src", data.src);
+        imgElement.classList.add("flickity-lazyloaded");
+
+        const mainDivClone = divElement.cloneNode(true);
+        const mainImageClone = imgElement.cloneNode(true);
+
+        const thumbDivClone = divElement.cloneNode(true); // Create a copy for thumb_divs
+        const thumbImageClone = imgElement.cloneNode(true); // Create a copy for thumb_divs
+
+        const separate_thumb = document.createElement("div");
+
+
+        mainDivClone.appendChild(mainImageClone);
+        thumbDivClone.appendChild(thumbImageClone);
+
+
+
+// Matched element
+
+
+        const divElement_separate = document.createElement('div');
+        divElement_separate.style.position = "absolute";
+        divElement_separate.style.left = "0";
+        divElement_separate.classList.add('carousel-cell');
+
+        let matchedElement = variant_dy_img.find((element) => {
+          const text = element.alt;
+          const title = updated_option;
+
+          if (text && text.includes(',,')) {
+            const elements_splitted = text.split(',,');
+            return elements_splitted.some((item) => item === title);
+          }
+          return false;
+        });
+
+// If matchedElement is undefined, set it to an empty object
+        if (! matchedElement) {
+          matchedElement = {};
+        }
+
+        thumbMatchedImages.push(matchedElement.src);
+
+// If matchedElement is undefined, set it to an empty object
+        if (! matchedElement) {
+          matchedElement = {};
+        }
+
+
+        thumbMatchedImages.forEach((element, index) => {
+          divElement_separate.style.transform = `translateX(${
+            (1 + index) * 100
+          }%)`;
+          const imgElement = document.createElement('img');
+          imgElement.src = element; // Set the src attribute
+          if (matchedElement.src == 'undefined' || matchedElement.src == undefined || matchedElement.src == null) {
+            divElement_separate.style.display = 'none';
+          } else {
+            divElement_separate.style.display = 'block';
+          } divElement_separate.appendChild(imgElement);
+        });
+
+
+        const forParent = divElement_separate.cloneNode(true);
+
+        all_main_divs.forEach(container => {
+
+// Remove existing content from main container
+          while (container.firstChild) {
+            container.removeChild(container.firstChild);
+          }
+
+          flkty.reloadCells()
+
+
+// Append the mainDivClone to the main container
+          container.appendChild(mainDivClone);
+          flkty.reloadCells();
+          container.appendChild(forParent);
+          if (matchedElement.src == 'undefined' || matchedElement.src == undefined || matchedElement.src == null) {
+
+            container.removeChild(container.children[1]);
+            container.style.transform = 'translateX(-0.75%)';
+            flkty.reloadCells();
+            flktyB.reloadCells();
+
+          } else {
+            container.appendChild(forParent);
+            flkty.reloadCells();
+          }
+          flkty.reloadCells();
+          if (flkty.cells.length < 2) {
+            flkty.reloadCells();
+            flktyB.reloadCells();
+            document.querySelector(".product__image-slider .flickity-button.flickity-prev-next-button.previous").style.display = 'none';
+            document.querySelector(".product__image-slider .flickity-button.flickity-prev-next-button.next").style.display = 'none';
+            flkty.options.draggable = false;
+            flkty.updateDraggable();
+            flktyB.options.draggable = false;
+            flktyB.updateDraggable();
+          } else {
+            document.querySelector(".product__image-slider .flickity-button.flickity-prev-next-button.previous").style.display = 'block';
+            document.querySelector(".product__image-slider .flickity-button.flickity-prev-next-button.next").style.display = 'block';
+            document.querySelector(".product__image-slider .flickity-button.flickity-prev-next-button.previous").removeAttribute("disabled");
+            document.querySelector(".product__image-slider .flickity-button.flickity-prev-next-button.next").removeAttribute("disabled");
+
+          }
+        });
+
+
+
+        all_thumb_divs.forEach(container_thumb => {
+          while (container_thumb.firstChild) {
+            container_thumb.removeChild(container_thumb.firstChild);
+          }
+          flktyB.reloadCells();
+          container_thumb.appendChild(thumbDivClone);
+          container_thumb.appendChild(divElement_separate);
+          container_thumb.style.transform = 'translateX(-0.75%)';
+          flktyB.reloadCells();
+          container_thumb.firstChild.classList.add("is-nav-selected");
+          if (flktyB.cells.length < 2) {
+            flktyB.options.draggable = false;
+            flktyB.updateDraggable();
+          }
+
+        });
+      });
+
+
+
+// Set the first image in main_productImage and thumb_images_active if there are matching images
+
+      if (matchingImages.length > 0) {
+
+        variant_img_st.src = matchingImages[0];
+        variant_img_st.srcset = matchingImages[0];
+
+
+      } else {}
+
+
+// Now, matchingImages array will contain all the image sources related to the alt text
+    }).catch((error) => {
+      console.error(error);
+    });
+
+    startTimer(filteredItems[0]);
+
+    product_compatiblity(filteredItems[0]);
+
+    product_item_specifications(filteredItems[0]);
+
+    updateVariantPortType(filteredItems[0]);
+
+    CheckPreOrder(filteredItems[0]);
+
+    if (selected_Swatches.dockType.length > 0) {
+      updateAlertText(filteredItems[0]);
+    }
+
+  }
+
+  function activateSwatch(swatchName, selectedValue) {
+    const swatchElements = swatches[swatchName];
+
+    if (! swatchElements) {
+      console.error('Invalid swatch name');
+      return;
+    }
+
+    swatchElements.forEach(element => {
+      const swatchValue = element.textContent.trim();
+
+      if (swatchValue === selectedValue) {
+        element.classList.add("active");
+      } else {
+        element.classList.remove("active");
+      }
+    });
+  }
+
+// Split the 2018-220, 2016-2020
+
+// method to get the elements
+  function getElements(min, max, counter) {
+    const years = [];
+    for (let j = min; j <= max; j++) {
+
+      years.push(j + "");
+    }
+    return years;
+  }
+  function removeItemsWithHyphen(arr) {
+    for (var i = arr.length - 1; i >= 0; i--) {
+      if (arr[i].indexOf('-') !== -1) {
+        arr.splice(i, 1); // Remove the item with a hyphen
+      }
+    }
+  }
+  function toggleSwatchAvailability(swatches, swatchName, dataArray) {
+    const swatchElements = swatches[swatchName];
+    if (! swatchElements || !Array.isArray(dataArray)) {
+      return;
+    }
+
+    const availableSwatchValues = new Set(dataArray.map(item => item[swatchName]));
+
+    swatchElements.forEach(element => {
+      const swatchValue = element.textContent.trim().replace(/”/g, '');
+      if (swatchName === 'sizes') {
+
+        if (Array.from(availableSwatchValues).some(item => item.includes(swatchValue))) {
+          element.removeAttribute('disabled');
+          element.style.backgroundColor = '#fefefe';
+        } else {
+          element.style.backgroundColor = '#00000008';
+          element.setAttribute('disabled', 'disabled');
+        }
+      } else if (swatchName === 'processor') {
+        let exist = false;
+        const arrayFromSet = Array.from(availableSwatchValues);
+        exist = arrayFromSet.find(item => {
+          if (item.includes(swatchValue.split('/')[0].trim())) {} else {}if (swatchValue.split('/').find(el => item.includes(el.trim()))) {
+            return item;
+          } else {
+            return undefined;
+          }
+        });
+        if (exist) {
+          element.style.backgroundColor = '#fefefe';
+          element.removeAttribute('disabled');
+        } else {
+          element.style.backgroundColor = '#00000008';
+          element.setAttribute('disabled', 'disabled');
+        }
+      } else if (swatchName === 'years') {
+        const arrayFromSet = Array.from(availableSwatchValues);
+
+        let elementWithHyphen;
+
+        if (swatchValue.includes('-')) {
+          arrayFromSet.forEach((value, index) => {
+            if (value.includes("-")) {
+              elementWithHyphen = value;
+              const splited_value = value.split("-");
+              const rangeOfYears = getElements(parseInt(splited_value[0]), parseInt(splited_value[1]), 1);
+              arrayFromSet[index] = value + "," + rangeOfYears;
+            }
+          });
+        }
+
+// removeItemsWithHyphen(arrayFromSet);
+
+        if (swatchValue.includes('-')) {
+          year16to2020.find(item1 => {
+            if (arrayFromSet.some(item2 => item2.includes(item1.trim()))) {
+              element.style.backgroundColor = '#fefefe';
+              element.removeAttribute('disabled');
+            } else {
+              element.style.backgroundColor = '#00000008';
+              element.setAttribute('disabled', 'disabled');
+            }
+          });
+        } else if (arrayFromSet.some(item => item.includes(swatchValue.trim()))) {
+
+          element.style.backgroundColor = '#fefefe';
+          element.removeAttribute('disabled');
+        } else {
+          element.style.backgroundColor = '#00000008';
+          element.setAttribute('disabled', 'disabled');
+        }
+      } else { // debugger;
+
+        if (swatchName === 'dockType') {
+          element.style.backgroundColor = '#fefefe';
+          element.removeAttribute('disabled');
+        } else if (Array.from(availableSwatchValues).some(item => item.includes(swatchValue.trim()))) {
+          element.style.backgroundColor = '#fefefe';
+          element.removeAttribute('disabled');
+        } else {
+          element.style.backgroundColor = '#00000008';
+          element.setAttribute('disabled', 'disabled');
+        }
+      }
+
+    });
+  }
+
+  function filterVariants(inputArray, filterObject) {
+    return inputArray.filter(item => {
+      for (const key in filterObject) {
+        if (filterObject[key] !== "") {
+          if (item[key] !== undefined && item[key] !== null && item[key] !== "") { // debugger;
+            if (key === "sizes") { // Handle the sizes attribute by splitting it into an array
+              const sizesArray = item[key].split(',').map(size => size.trim());
+
+// Check if any size in the item matches any size in the filterObject
+              const filterSizes = filterObject[key].split(',').map(size => size.trim());
+              if (filterSizes.some(filterSize => sizesArray.includes(filterSize))) {
+                continue;
+              }
+
+            } else if (key === "years") { // Handle the years attribute by splitting it into an array
+              const yearsArray = item[key].split(',').map(year => year.trim());
+              let rangeOfYears = [];
+              if (filterObject[key].includes('-')) {
+                yearsArray.forEach(year => {
+                  if (year.includes('-')) 
+                    rangeOfYears = getElements(year.split('-')[0], year.split('-')[1], 1);
+                  
+
+
+
+                  rangeOfYears.forEach(y => yearsArray.push(y.trim()));
+                });
+              }
+
+              if (filterObject[key].includes('-')) {
+                const filterYears = year16to2020;
+                if (filterYears.some(filterYear => yearsArray.includes(filterYear))) {
+                  continue;
+                }
+              } else { // Check if any year in the item matches any year in the filterObject
+                const filterYears = filterObject[key].split(',').map(year => year.trim());;
+                if (filterYears.some(filterYear => yearsArray.includes(filterYear))) {
+                  continue;
+                }
+              }
+
+            } else if (key === 'processor') { // Handle the processor attribute by splitting it into an array
+              const processorArray = item[key].map(processor => processor.trim());
+
+
+// Check if any processor in the item matches any year in the filterObject
+              const filterProcessor = filterObject[key].split('/').map(processor => processor.trim());
+              if (filterProcessor.some(filterProcessor => processorArray.includes(filterProcessor))) {
+
+                continue;
+              }
+
+            } else if (item[key].replace(' ', '').includes(filterObject[key].replace(' ', ''))) {
+              continue;
+            }
+          }
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+  function HideCounterOnMobile() {
+    const count_down_mobile_swatch = document.querySelector("#mobile-count-down");
+    const count_down_mobile_inner_swatch = count_down_mobile_swatch.querySelector(".countdown_display");
+    count_down_mobile_swatch.style.display = 'none';
+    count_down_mobile_inner_swatch.style.display = 'none';
+  }
+
+  function disableAtcbtn() {
+    const specific_Atc_btn_swatch = document.querySelector(".specific_atc");
+    specific_Atc_btn_swatch.setAttribute("disabled", "true");
+    const stick_main_atc = document.querySelector(".stickmain_atc");
+
+    stick_main_atc.setAttribute("disabled", "true");
+  }
+
+  function disableAndInActiveSwatches(swatch_name) {
+    swatches[swatch_name].forEach(el => {
+      el.setAttribute('disabled', 'true');
+      el.classList.remove('active');
+      el.style.backgroundColor = '#00000008';
+    });
+  }
+
+
+
+  function disableAndInActiveSwatchesOnPageLoad() {
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('years');
+    disableAndInActiveSwatches('sizes');
+    disableAndInActiveSwatches('processor');
+    const specific_Atc_btn = document.querySelector(".specific_atc");
+    specific_Atc_btn.setAttribute("disabled", "true");
+  }
+
+  window.onload = disableAndInActiveSwatchesOnPageLoad;
+
+  function onSelectModel(model) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('sizes');
+    disableAndInActiveSwatches('years');
+    disableAndInActiveSwatches('processor');
+    disableAtcbtn();
+    ShowOnlyInitialtext();
+    HideCounterOnMobile();
+
+    for (const key in selected_Swatches) {
+      selected_Swatches[key] = "";
+    }
+
+    selected_Swatches.model = model;
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+
+    toggleSwatchAvailability(swatches, 'sizes', filteredItems);
+
+    activateSwatch('model', model);
+  }
+
+  function onSelectSize(size) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('sizes');
+    disableAndInActiveSwatches('processor');
+    disableAtcbtn();
+    ShowOnlyInitialtext();
+    HideCounterOnMobile();
+
+    for (const key in selected_Swatches) {
+      if (key !== 'model') 
+        selected_Swatches[key] = "";
+      
+
+
+
+    }
+
+    selected_Swatches.sizes = size;
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+
+    toggleSwatchAvailability(swatches, 'years', filteredItems);
+
+    activateSwatch('sizes', size + '”');
+
+  }
+
+  function onSelectYear(year) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    disableAndInActiveSwatches('dockType');
+    disableAndInActiveSwatches('processor');
+    disableAtcbtn();
+    ShowOnlyInitialtext();
+    HideCounterOnMobile();
+
+    for (const key in selected_Swatches) {
+      if (key !== 'years' && key !== 'model' && key !== 'sizes') 
+        selected_Swatches[key] = "";
+      
+
+
+
+    }
+
+    selected_Swatches.years = year;
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+
+    toggleSwatchAvailability(swatches, 'processor', filteredItems);
+
+    activateSwatch('years', year);
+  }
+
+  function onSelectProcessor(processor) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+
+// disableAndInActiveSwatches('dockType');
+    disableAtcbtn();
+    ShowOnlyInitialtext();
+    HideCounterOnMobile();
+
+    for (const key in selected_Swatches) {
+      if (key !== 'years' && key !== 'model' && key !== 'sizes' && key !== 'processor') {
+        selected_Swatches[key] = "";
+
+      }
+
+    }
+
+    selected_Swatches.processor = processor;
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+
+    toggleSwatchAvailability(swatches, 'dockType', filteredItems);
+
+    activateSwatch('processor', processor);
+  }
+
+  function onSelectBundle(docType) {
+    if (event.target.hasAttribute("disabled")) {
+      return false;
+    }
+    for (const key in selected_Swatches) {
+      if (key !== 'years' && key !== 'model' && key !== 'sizes' && key !== 'processor' && key !== 'docType') {
+        selected_Swatches[key] = "";
+
+      }
+
+    }
+    updateTextShow();
+    selected_Swatches.dockType = docType;
+
+    filteredItems = filterVariants(mappedArrayOfMetaFields, selected_Swatches);
+
+    activateSwatch('dockType', docType);
+
+    if (filteredItems.length > 0) {
+      variant_id(filteredItems[0].id);
+    }
+
+    specific_Atc_btn.removeAttribute("disabled", "true");
+    const stick_main_atc_enable = document.querySelector(".stickmain_atc");
+    stick_main_atc_enable.removeAttribute("disabled", "true");
+
+
+  }
+</script>
