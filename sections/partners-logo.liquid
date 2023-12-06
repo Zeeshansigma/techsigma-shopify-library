@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{{ "partner-logo-ase.css" | asset_url | stylesheet_tag }}
+
+<style>
+  .brand-slider.owl-carousel .owl-item img {
+    display: block;
+    width: auto;
+    object-fit: contain;
+  }
+  .slide {
+    /* width: 150px; */
+    height: 60px;
+
+    /* display: grid;
+    place-items: center; */
+    transition: 0.5s;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1)
+  }
+  .slide:hover {
+    transform: scale(0.8)
+  }
+  .brand-slider.owl-carousel .owl-item img{
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .brand-slider.owl-carousel .owl-stage {
+      transition-timing-function: linear !important;
+      display: flex;
+  }
+</style>
+<section class="brand-logo-section {{ section.settings.brand_logo_width }}">
+  <div class="page-width row container mx-auto px-4 sm:px-12 py-8 slider-body">
+    <h2 class="title">Trusted by the best</h2>
+    <div class="brand-slider owl-carousel owl-theme">
+      {% for block in section.blocks %}
+        <div class="slide item">
+
+          <img src="{{ block.settings.brand_logo | img_url:'master' }}">
+
+        </div>
+      {% endfor %}
+    </div>
+  </div> 
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  jQuery(document).ready(function($) {
+        $('.brand-slider').owlCarousel({
+          center: true,
+          items: 4,
+          loop: true,
+          nav: false,
+          dots: false,
+          margin: 48,
+          autoplay: true,
+          autoplayTimeout: 3000,
+          smartSpeed: 3000,
+          autoplayHoverPause: true,
+    
+          responsive: {
+            1800: {
+              items: 7
+            },
+            1660: {
+              items: 7
+            },
+            1340: {
+              items: 7
+            },
+            1280: {
+              items: 7
+            },
+            800: {
+              items: 7
+            },
+            600: {
+              items: 4
+            },
+            400: {
+              items: 4
+            },
+            0: {
+              items: 4
+            }
+          }
+        });
+        });
+</script> 
+{% schema %}
+  {
+    "name": "partners Log",
+    "settings": [
+
+      {
+        "type": "text",
+        "id": "brand_logo_show",
+        "label": "ADD How Many Brands Show Do You want In One Row in Laptop/computer",
+        "default": "4"
+      }, {
+        "type": "text",
+        "id": "brand_logo_tablet",
+        "label": "ADD How Many Brands Show Do You want In One Row in Tablet",
+        "default": "3"
+      }, {
+        "type": "text",
+        "id": "brand_logo_mobile",
+        "label": "ADD How Many Brands Show Do You want In One Row in Mobile",
+        "default": "2"
+      }
+    ],
+    "max_blocks": 20,
+    "blocks": [
+      {
+        "name": "Brand Logo",
+        "type": "slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "brand_logo",
+            "label": "ADD Brand logo"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "partners Logo"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,122 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "b12b6749-5e2a-4f9a-8c99-453bec873b2a": {
+      "type": "footer-new",
+      "blocks": {
+        "07bb9984-0d41-4e52-a66c-7a49941ed66e": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Pre-Purchase Service",
+            "menu": "footer-2"
+          }
+        },
+        "f5eaa7ea-6711-446d-a77b-92823aa8df3a": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Company",
+            "menu": "footer-3"
+          }
+        },
+        "674adc94-ff5c-4f04-a101-42e3549d618c": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Products",
+            "menu": "footer-5"
+          }
+        },
+        "79ae4c77-9844-43b0-8247-357d2904a011": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Customer Service",
+            "menu": "footer-4"
+          }
+        }
+      },
+      "block_order": [
+        "07bb9984-0d41-4e52-a66c-7a49941ed66e",
+        "f5eaa7ea-6711-446d-a77b-92823aa8df3a",
+        "674adc94-ff5c-4f04-a101-42e3549d618c",
+        "79ae4c77-9844-43b0-8247-357d2904a011"
+      ],
+      "settings": {
+        "footer_logo": "shopify:\/\/shop_images\/Logo_and_supporting_text.png",
+        "color_scheme": "",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": false,
+        "margin_top": 0,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "terms_footer": "Terms",
+        "privacy_footer": "Privacy",
+        "cookies_footer": "Cookies",
+        "copyright_footer": "© 2023 Ascrono, All Rights Reserved - Designed with 🤍 in the USA"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "5b7497c5-bf54-4286-81ab-290d7a3a2a4d": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/path645.png",
+            "image_width": 100,
+            "alignment": "center"
+          }
+        },
+        "1fb02315-e3fe-418e-bf3f-23a695e97bad": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
+          }
+        },
+        "79a3be57-8b3c-4f1d-974f-1cccae124e9d": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer-1"
+          }
+        },
+        "006e934c-8343-423c-a607-8e411ced457f": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        }
+      },
+      "block_order": [
+        "5b7497c5-bf54-4286-81ab-290d7a3a2a4d",
+        "1fb02315-e3fe-418e-bf3f-23a695e97bad",
+        "79a3be57-8b3c-4f1d-974f-1cccae124e9d",
+        "006e934c-8343-423c-a607-8e411ced457f"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "background-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "b12b6749-5e2a-4f9a-8c99-453bec873b2a",
+    "footer"
+  ]
+}

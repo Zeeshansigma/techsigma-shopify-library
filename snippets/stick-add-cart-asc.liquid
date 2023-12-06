@@ -1,0 +1,144 @@
+<style>
+  .prod-btm-price {
+
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 99999;
+    align-items: center;
+    background: white;
+    height: 100px;
+    -webkit-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.08);
+    -moz-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.08);
+    box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.08);
+  }
+  p.product-price-ase {
+    font-family: Montserrat;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--electronic-indigo, #6219FA);
+    margin: 0;
+  }
+  .price-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .compare-price-ese {
+    color: #AAA;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: line-through;
+  }
+  .pro-btm-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  .prod-btm-price .page-width {
+    height: 100%;
+  }
+  .hide_sticky {
+    display: none;
+  }
+  @media screen and (max-width:991px) {
+    .prod-btm-price {
+      height: 60px;
+    }
+    p.product-price-ase {
+      font-size: 16px;
+    }
+    .btn-price-under {
+      display: none;
+    }
+    .prod-btm-price .product-form__submit,
+    .shopify-payment-button {
+      font-size: 14px;
+      font-weight: 400;
+      padding: 10px 12px;
+      min-height: inherit !important;
+      height: inherit !important;
+      max-height: inherit !important;
+      margin-bottom: 0 !important;
+    }
+    .compare-price-ese {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<section id="sticky-cart">
+  <div class="stick-add-to-cart-main btm-sticky-bar">
+    <div class="product-price prod-btm-price ">
+      <div class="page-width">
+        <div class="pro-btm-wrap ">
+          <div class="price-main">
+            <p class="product-price-ase">{{ product.price | money }}</p>
+            <span class="compare-price-ese">
+              {{ product.compare_at_price | money }}
+            </span>
+          </div>
+          <div class="add-to-cart-asc">
+
+            {% if product.template_suffix == 'shogun.custom' or product.template_suffix == 'regular-product' %}
+              <form method="post" action="/cart/add">
+                <input
+                  type="hidden"
+                  name="id"
+                  class="new_add_btn_sticky_regular"
+                  value="{{ product.variants.first.id }}" />
+                <input
+                  type="submit"
+                  value="{{ 'products.product.add_to_cart' | t }}"
+                  class="product-form__submit button button--full-width button--secondary" />
+              </form>
+            {% else %}
+
+              <form method="post" action="/cart/add">
+                <input
+                  type="hidden"
+                  name="id"
+                  class="new_add_btn_sticky_default"
+                  value="{{ product.variants.first.id }}" />
+                <input
+                  disabled="true"
+                  type="submit"
+                  value="{{ 'products.product.add_to_cart' | t }}"
+                  class="stickmain_atc product-form__submit button button--full-width button--secondary" />
+              </form>
+
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!--page-width-->
+    </div>
+    <!--prod-btm-price-->
+  </div>
+  <!--btm-sticky-bar-->
+</section>
+
+
+<script>
+  $('#sticky-cart').hide();
+  $(window).scroll(function() {
+    var scrollTop = $(window).scrollTop();
+    var scrollThreshold = 1100;
+    if (scrollTop > scrollThreshold) {
+      $('#sticky-cart').show();
+    } else {
+      $('#sticky-cart').hide();
+    }
+  });
+
+  var new_add_btn_sticky_regular = document.querySelector(".new_add_btn_sticky_regular");
+  var product_variant_id_my = document.querySelector(".product-variant-id");
+  console.log(product_variant_id_my, product_variant_id_my.value);
+  new_add_btn_sticky_regular.value = '';
+  new_add_btn_sticky_regular.value = product_variant_id_my.value;
+</script>

@@ -1,0 +1,22 @@
+  .brand-logo-section{
+    display: flex;
+    gap: 20px;
+    padding-bottom:30px;
+    margin-top: 40px;
+}
+.brand-logo-section  .row{
+  margin:0px auto!Important;
+}
+
+  .brand-logo-section .title{
+    color: #1F1F1F;
+    text-align: center;
+    font-family:'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 110%; /* 52.8px */
+    letter-spacing: -0.96px;
+}
+.brand-logo-section .title{
+  margin-bottom:40px;
+}

@@ -1,0 +1,41 @@
+{{ "customer-titlebar.css" | asset_url | stylesheet_tag }}
+<style>
+  {% if template.suffix == 'regular-product' %}
+    @media screen and (max-width:576px){
+      .customer-review-section{
+        margin-top:60px;
+      }
+    }
+    {% endif %}
+</style>
+<section class="customer-review-section page-width" id="">
+    <div class="row">
+      <div class="customer-heading-bar">
+        <h2 class="title">{{ section.settings['main-heading'] }}</h2>
+        <p>{{ section.settings['para-heading'] }}</p>
+      </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Review Heading",
+  "settings": [
+    {
+  "type": "text",
+  "id": "main-heading",
+  "label": "main Heading"
+},
+    {
+  "type": "text",
+  "id": "para-heading",
+  "label": "Paragraph Text"
+}
+  ],
+    "presets": [
+  {
+    "name": "Customer Review Heading"
+  }
+]
+}
+{% endschema %}
